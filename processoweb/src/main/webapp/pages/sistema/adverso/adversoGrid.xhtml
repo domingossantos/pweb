@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/sistema.xhtml">
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link outcome="pretty:processoGrid" value="Processos"/> / <h:link outcome="pretty:adversoNovo" value="Adverso"/> / Lista 
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form prependId="false" id="formGrid">
+		<p:fieldset legend="Lista de Advogados Adversos">
+			<h:panelGrid columns="1" cellspacing="2">
+				<p:commandButton value="Novo Adverso" action="pretty:adversoNovo"
+					ajax="false" immediate="true" process="@this"
+					styleClass="ui-priority-primary" />
+			</h:panelGrid>
+			<p:dataTable id="dataTable" var="adverso"
+				value="#{adversoGridBean.adversoLista}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="#{adverso.nmAdverso}"/>
+					
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Fone" />
+					</f:facet>
+					<h:outputText  value="#{adverso.nrFone}">
+						<f:converter converterId="phoneConverter"/>
+					</h:outputText>
+						
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Celular" />
+					</f:facet>
+					<h:outputText value="#{adverso.nrCelular}">
+						<f:converter converterId="phoneConverter"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="E-mail" />
+					</f:facet>
+					<h:outputText value="#{adverso.dsEmail}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:link outcome="pretty:adversoEditar" value="Editar">
+						<f:param name="idAdverso" value="#{adverso.cdAdverso}"/>
+					</h:link>
+				</p:column>
+			</p:dataTable>
+		</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

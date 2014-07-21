@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<meta charset="utf-8" />
+<h:head>
+	
+	<link href="#{request.contextPath}/resources/css/sistema.css"
+		rel="stylesheet" type="text/css" />
+</h:head>
+<body>
+	<div class="topo">
+		<div class="topo-interno">
+			<div class="logo-topo">CinbProc</div>
+			<div class="menu">
+				<div id='cssmenu'>
+					<ul>
+						<li class='active'><h:link outcome="pretty:home" value="Home"/></li>
+						<li class='has-sub'><a href='#'><span>Processo</span></a>
+							<ul>
+								<li><h:link outcome="pretty:processoNovo" value="Novo"/></li>
+								<li><a href='#'><span>Abertos</span></a></li>
+								<li class='last'><a href='#'><span>Custas</span></a></li>
+								<li class='last'><h:link outcome="pretty:adversoGrid" value="Adverso"/></li>
+							</ul></li>
+						<li class='has-sub'><a href='#'><span>Cadastros
+									Auxiliares</span></a>
+							<ul>
+								<li><h:link outcome="pretty:cartorioGrid" value="Cartorio"/></li>
+								<li class='last'><a href='#'><span>Location</span></a></li>
+							</ul></li>
+						<li class='last'><a href='#'><span>Suporte</span></a></li>
+						<li class='last'><h:link outcome="pretty:logout" value="Sair"/></li>
+						
+					</ul>
+				</div>
+
+			</div>
+			<h:form id="formMsg" prependId="false">
+				<p:growl id="msg" sticky="true" autoUpdate="true"
+					severity="warn,info" showDetail="true" showSummary="false" />
+			</h:form>
+		</div>
+	</div>
+	<div class="main">
+		<div class="localizacao">
+			<span><h:outputLabel value="#{loginBean.cadastro.nmUsuario}" /> | </span>
+			<span><ui:insert name="localizacao" /></span>
+		</div>
+		<div class="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+</body>
+<script>
+// Cache the elements we'll need
+var menu = $('#cssmenu');
+var menuList = menu.find('ul:first');
+var listItems = menu.find('li').not('#responsive-tab');
+
+// Create responsive trigger
+menuList.prepend('<li id="responsive-tab"><a href="#">Menu</a></li>');
+
+// Toggle menu visibility
+menu.on('click', '#responsive-tab', function(){
+	listItems.slideToggle('fast');
+	listItems.addClass('collapsed');
+});
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/sistema.xhtml">
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link
+			outcome="pretty:processoGrid" value="Processos" /> / <h:link
+			outcome="pretty:adversoGrid" value="Adverso" /> / cadastro
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form prependId="false" id="formGrid">
+			<p:fieldset legend="Advogado Adverso">
+				<h:panelGrid columns="3" cellspacing="2">
+					<h:outputLabel value="Nome" for="txNome"/>
+					<p:inputText id="txNome" value="#{adversoFormBean.adverso.nmAdverso}" required="true" size="50" maxlength="50"/>
+					<p:message for="txNome" />
+					
+					<h:outputLabel value="Fone" for="txFone"/>
+					<p:inputMask id="txFone" mask="(99) 9999-9999" value="#{adversoFormBean.adverso.nrFone}"  required="true"/>
+					<p:message for="txFone" />
+					
+					<h:outputLabel value="Velular" for="txCel"/>
+					<p:inputMask id="txCel" mask="(99) 9999-9999" value="#{adversoFormBean.adverso.nrCelular}"/>
+					<p:message for="txCel" />
+					
+					<h:outputLabel value="Fone Res" for="txFoneres"/>
+					<p:inputMask id="txFoneres" mask="(99) 9999-9999" value="#{adversoFormBean.adverso.nrFoneres}"/>
+					<p:message for="txFoneres" />
+					
+					<h:outputLabel value="E-Mail" for="txEmail"/>
+					<p:inputText id="txEmail" value="#{adversoFormBean.adverso.dsEmail}"  required="true"  size="50" maxlength="50">
+						<f:validator validatorId="validadorEmail"/>
+					</p:inputText>
+					<p:message for="txEmail" />
+					
+					<p:commandButton action="#{adversoFormBean.salvar()}" value="Salvar" ajax="false" process="@this"/>
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

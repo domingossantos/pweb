@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/sistema.xhtml">
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link
+			outcome="pretty:processoGrid" value="Processos" /> / <h:link
+			outcome="pretty:cartorioGrid" value="Cartório" /> / cadastro
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form prependId="false" id="formGrid">
+			<p:fieldset legend="Cartório">
+				<h:panelGrid columns="3" cellspacing="2">
+					<h:outputLabel value="Cartório" for="txNome"/>
+					<p:inputText id="txNome" value="#{cartorioFormBean.cartorio.dsCartorio}" required="true" size="50" maxlength="50"/>
+					<p:message for="txNome" />
+					
+					<h:outputLabel value="Fone" for="txFone"/>
+					<p:inputMask id="txFone" mask="(99) 9999-9999" value="#{cartorioFormBean.cartorio.nrFone}"/>
+					<p:message for="txFone" />
+					
+					<h:outputLabel value="Contato" for="txContato"/>
+					<p:inputText id="txContato" value="#{cartorioFormBean.cartorio.nmContato}"  size="50" maxlength="50"/> 
+					<p:message for="txContato" />
+					
+					
+					<p:commandButton action="#{cartorioFormBean.salvar()}" value="Salvar" ajax="false" process="@this"/>
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

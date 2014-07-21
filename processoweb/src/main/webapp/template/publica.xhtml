@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link href="#{request.contextPath}/resources/css/layout.css" rel="stylesheet" type="text/css" />
+</h:head> 
+<body> 
+	<div class="main">
+		<div class="topo">
+			<h:form id="formMsg" prependId="false">
+            	<p:growl id="msg" sticky="true" autoUpdate="true" severity="warn,info" showDetail="true" showSummary="false"/>
+        	</h:form>
+			<p:panel id="panelTopo" header="Topo"></p:panel>
+		</div>
+		<div class="lateral">
+			<p:panel id="panelLateral" header="Andamento da Inscrição">
+            <br />
+
+            
+        </p:panel>
+		</div>
+		<div class="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+</body> 
+</html>

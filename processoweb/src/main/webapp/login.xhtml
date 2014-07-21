@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/publica.xhtml">
+	<ui:define name="conteudo">
+		<h:form id="formLogin" style="padding-left: 38%; padding-top: 4%;"
+			prependId="false">
+
+			<p:growl autoUpdate="true" showSummary="true" showDetail="false"
+				sticky="true" />
+
+			<h:panelGrid columns="1" style="width: 100%" cellspacing="5">
+				<h3>Sistema de Processos</h3>
+				<br />
+				<h:panelGroup>
+					<p:panelGrid columns="2">
+						<f:facet name="header">Acesso ao sistema</f:facet>
+
+						<p:outputLabel for="lbEmail" value="Email:" />
+						<p:inputText id="lbEmail" required="true"
+							requiredMessage="Informe o E-mail" maxlength="50" size="50"
+							value="#{loginBean.email}" />
+
+						<p:outputLabel for="senha" value="Senha:" />
+						<p:password id="senha" required="true"
+							requiredMessage="Informe a senha" maxlength="20"
+							value="#{loginBean.senha}" />
+
+						<f:facet name="footer">
+							<p:commandButton value="Entrar" icon="ui-icon-check"
+								action="#{loginBean.logar()}" ajax="false" />
+						</f:facet>
+					</p:panelGrid>
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

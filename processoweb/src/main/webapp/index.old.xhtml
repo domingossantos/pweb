@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/template/publica.xhtml">
+    <ui:define name="conteudo">
+    	<h:form id="formCadastro">
+    	<p:messages></p:messages>
+        <p:panel header="Cadastro" id="penelCadastro">
+            <p:panelGrid columns="3" style="border: none !important;">
+            	<p:column><p:outputLabel value="Nome:" for="tfnome" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.nmUsuario}" id="tfnome" 
+            					 required="true" size="50" maxlength="50" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	<p:column><p:message for="tfnome" /></p:column>
+            	
+            	<p:column><p:outputLabel value="Tipo Pessoa:" for="tfPessoa" /></p:column>
+            	<p:column>
+            		<p:selectOneRadio id="tfPessoa">
+            			<f:selectItem itemValue="F" itemLabel="Física"/>
+            			<f:selectItem itemValue="J" itemLabel="Jurídica"/>
+            		</p:selectOneRadio>
+            	</p:column>
+            	<p:column><p:message for="tfPessoa" /></p:column>
+            	
+            	
+            	<p:column><p:outputLabel value="CPF:" for="tfCpf" /></p:column>
+            	<p:column>
+            		<p:inputMask value="#{cadastroFormBean.cadastro.nmUsuario}" id="tfCpf" mask="999.999.999-99"
+            					 required="true" size="20"  requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	<p:column><p:message for="tfCpf" /></p:column>
+				
+				<p:column><p:outputLabel value="E-Mail:" for="tfEmail" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.dsEmail}" id="tfEmail"
+            					 required="true" size="60" maxlength="60" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	<p:column><p:message for="tfEmail" /></p:column>            	
+            	
+            	<p:column><p:outputLabel value="Fone:" for="tfFone" /></p:column>
+            	<p:column>
+            		<p:inputMask value="#{cadastroFormBean.cadastro.nrFone}" id="tfFone" mask="(99) 9999-9999"
+            					 required="true" size="20" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	
+            	<p:column><p:message for="tfFone" /></p:column>            	
+            	
+            	<p:column><p:outputLabel value="Estado:" for="tfUf" /></p:column>
+            	<p:column>
+            		<p:selectOneMenu id="tfUf" value="#{cadastroFormBean.cadastro.sgUf}" required="true" requiredMessage="Campo Obrigatório">
+            			<f:selectItem itemLabel="Slecione"/>
+            			<f:selectItem itemLabel="Slecione" itemValue=""/>
+            			<f:selectItem itemLabel="AC" itemValue="Acre" />
+						<f:selectItem itemLabel="AL" itemValue="Alagoas" />
+						<f:selectItem itemLabel="AP" itemValue="Amapá" />
+						<f:selectItem itemLabel="AM" itemValue="Amazonas" />
+						<f:selectItem itemLabel="BA" itemValue="Bahia" />
+						<f:selectItem itemLabel="CE" itemValue="Ceará" />
+						<f:selectItem itemLabel="DF" itemValue="Distrito Federal" />
+						<f:selectItem itemLabel="ES" itemValue="Espirito Santo" />
+						<f:selectItem itemLabel="GO" itemValue="Goiás" />
+						<f:selectItem itemLabel="MA" itemValue="Maranhão" />
+						<f:selectItem itemLabel="MS" itemValue="Mato Grosso do Sul" />
+						<f:selectItem itemLabel="MT" itemValue="Mato Grosso" />
+						<f:selectItem itemLabel="MG" itemValue="Minas Gerais" />
+						<f:selectItem itemLabel="PA" itemValue="Pará" />
+						<f:selectItem itemLabel="PB" itemValue="Paraíba" />
+						<f:selectItem itemLabel="PR" itemValue="Paraná" />
+						<f:selectItem itemLabel="PE" itemValue="Pernambuco" />
+						<f:selectItem itemLabel="PI" itemValue="Piauí" />
+						<f:selectItem itemLabel="RJ" itemValue="Rio de Janeiro" />
+						<f:selectItem itemLabel="RN" itemValue="Rio Grande do Norte" />
+						<f:selectItem itemLabel="RS" itemValue="Rio Grande do Sul" />
+						<f:selectItem itemLabel="RO" itemValue="Rondônia" />
+						<f:selectItem itemLabel="RR" itemValue="Roraima" />
+						<f:selectItem itemLabel="SC" itemValue="Santa Catarina" />
+						<f:selectItem itemLabel="SP" itemValue="São Paulo" />
+						<f:selectItem itemLabel="SE" itemValue="Sergipe" />
+						<f:selectItem itemLabel="TO" itemValue="Tocantins" />
+            		</p:selectOneMenu >
+            	</p:column>
+            	<p:column><p:message for="tfUf" /></p:column>            	
+            	
+            	<p:column><p:outputLabel value="CEP:" for="tfCep" /></p:column>
+            	<p:column>
+            		<p:inputMask value="#{cadastroFormBean.cadastro.nrCep}" id="tfCep" mask="99.999-999"
+            					 required="true" size="20" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	
+            	<p:column><p:message for="tfCep" /></p:column>
+            	
+            	<p:column><p:outputLabel value="Cidade:" for="tfCidade" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.dsCidade}" id="tfCidade"
+            					 required="true" size="50" maxlength="50" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	<p:column><p:message for="tfCidade" /></p:column>
+            	
+            	<p:column><p:outputLabel value="Endereco:" for="tfEndereco" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.dsEndereco}" id="tfEndereco"
+            					 required="true" size="50" maxlength="80" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	<p:column><p:message for="tfEndereco" /></p:column>
+            	
+            	<p:column><p:outputLabel value="No. Endereco:" for="tfNumero" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.nrEndereco}" id="tfNumero"
+            					 required="true" size="20" maxlength="10" requiredMessage="Campo Obrigatório"/>
+            	</p:column>
+            	<p:column><p:message for="tfNumero" /></p:column>
+            	
+            	<p:column><p:outputLabel value="Bairro:" for="tfBairro" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.dsBairro}" id="tfBairro" size="30" maxlength="50" />
+            	</p:column>
+            	<p:column><p:message for="tfBairro" /></p:column>
+            	
+            	<p:column><p:outputLabel value="Complemento:" for="tfComplemento" /></p:column>
+            	<p:column>
+            		<p:inputText value="#{cadastroFormBean.cadastro.dsComplemento}" id="tfComplemento" size="30" maxlength="50" />
+            	</p:column>
+            	<p:column><p:message for="tfComplemento" /></p:column>
+            	
+            	
+            	<p:column>
+            		<p:commandButton value="Gravar" styleClass="ui-priority-primary" action="#{cadastroFormBean.cadastrar()}"/>
+            	</p:column>
+            </p:panelGrid>
+
+            
+        </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
