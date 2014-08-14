@@ -9,7 +9,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @RequestScoped
 @URLMappings(mappings = {
-	    @URLMapping(id = "processoNovo", pattern = "/processo/novo", viewId = "/pages/sistema/processo/processoForm.jsf")
+	    @URLMapping(id = "processoNovo", pattern = "/processo/novo", viewId = "/pages/sistema/processo/processoForm.jsf", parentId = "paginaRestrita")
 	})
 public class ProcessoFormBean {
 

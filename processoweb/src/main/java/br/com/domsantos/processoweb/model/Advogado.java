@@ -51,7 +51,7 @@ public class Advogado implements Serializable {
 	private String vlSenha;
 
 	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cd_cadastro")
 	private Cadastro cadastro;
 

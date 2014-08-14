@@ -18,7 +18,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @RequestScoped
 @URLMappings(mappings = {
-	    @URLMapping(id = "cartorioGrid", pattern = "/cartorio/lista", viewId = "/pages/sistema/cartorio/cartorioGrid.jsf")
+	    @URLMapping(id = "cartorioGrid", pattern = "/cartorio/lista", viewId = "/pages/sistema/cartorio/cartorioGrid.jsf", parentId = "paginaRestrita")
 	})
 public class CartorioGridBean {
 	

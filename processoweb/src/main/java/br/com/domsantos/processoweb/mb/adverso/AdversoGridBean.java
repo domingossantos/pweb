@@ -19,7 +19,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @RequestScoped
 @URLMappings(mappings = {
-	    @URLMapping(id = "adversoGrid", pattern = "/adverso/lista", viewId = "/pages/sistema/adverso/adversoGrid.jsf")
+	    @URLMapping(id = "adversoGrid", pattern = "/adverso/lista", viewId = "/pages/sistema/adverso/adversoGrid.jsf", parentId = "paginaRestrita")
 	})
 public class AdversoGridBean extends PaginaBean {
 	

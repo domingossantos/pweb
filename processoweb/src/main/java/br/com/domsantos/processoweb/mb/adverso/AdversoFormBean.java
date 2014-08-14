@@ -18,8 +18,8 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "adversoNovo", pattern = "/adverso/novo", viewId = "/pages/sistema/adverso/adversoForm.jsf"),
-		@URLMapping(id = "adversoEditar", pattern = "/adverso/editar/#{idAdverso : adversoFormBean.idAdverso}", viewId = "/pages/sistema/adverso/adversoForm.jsf") })
+		@URLMapping(id = "adversoNovo", pattern = "/adverso/novo", viewId = "/pages/sistema/adverso/adversoForm.jsf", parentId = "paginaRestrita"),
+		@URLMapping(id = "adversoEditar", pattern = "/adverso/editar/#{idAdverso : adversoFormBean.idAdverso}", viewId = "/pages/sistema/adverso/adversoForm.jsf", parentId = "paginaRestrita") })
 public class AdversoFormBean extends PaginaBean {
 
 	private static final long serialVersionUID = 1L;

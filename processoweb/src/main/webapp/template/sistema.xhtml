@@ -236,7 +236,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span><h:outputLabel value="#{loginBean.cadastro.nmUsuario}" /> <i class="caret"></i></span>
+                                <span><h:outputLabel value="#{loginBean.advogado.cadastro.nmUsuario}" /> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -248,24 +248,14 @@
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </li>
+                                
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">Cadastro</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    	<h:link outcome="pretty:logout" styleClass="btn btn-default btn-flat" value="Sign out"/>
                                     </div>
                                 </li>
                             </ul>
@@ -285,7 +275,7 @@
                             <img src="img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Ola, <h:outputLabel value="#{loginBean.cadastro.nmUsuario}" /></p>
+                            <p>Ola, <h:outputLabel value="#{loginBean.advogado.nmAdvogado}" /></p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
@@ -398,12 +388,12 @@
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <ui:define name="top_conteudo">
+                    <ui:insert name="top_conteudo">
                     	<h1>Blank page <small>Control panel</small></h1>
-                    </ui:define>
-                    <ui:define name="localizacao">
-                    <ol class="breadcrumb">Home</ol>
-                    </ui:define>
+                    </ui:insert>
+                    <ol class="breadcrumb">
+                    	<ui:insert name="localizacao"></ui:insert>
+                    </ol>
                 </section>
 
                 <!-- Main content -->

@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/sistema.xhtml">
+	<ui:define name="top_conteudo"><h2>Cartório</h2></ui:define>
 	<ui:define name="localizacao">
 		<h:link outcome="pretty:home" value="Home" /> / <h:link
 			outcome="pretty:processoGrid" value="Processos" /> / <h:link
@@ -13,7 +14,7 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form prependId="false" id="formGrid">
-			<p:fieldset legend="Cartório">
+			
 				<h:panelGrid columns="3" cellspacing="2">
 					<h:outputLabel value="Cartório" for="txNome"/>
 					<p:inputText id="txNome" value="#{cartorioFormBean.cartorio.dsCartorio}" required="true" size="50" maxlength="50"/>
@@ -31,7 +32,7 @@
 					<p:commandButton action="#{cartorioFormBean.salvar()}" value="Salvar" ajax="false" process="@this"/>
 					
 				</h:panelGrid>
-			</p:fieldset>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

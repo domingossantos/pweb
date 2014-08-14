@@ -15,7 +15,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ManagedBean
 @ViewScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "home", pattern = "/home/", viewId = "/pages/sistema/home.jsf")
+		@URLMapping(id = "home", pattern = "/home/", viewId = "/pages/sistema/home.jsf", parentId = "paginaRestrita")
 	})
 public class HomeBean extends PaginaBean{
 

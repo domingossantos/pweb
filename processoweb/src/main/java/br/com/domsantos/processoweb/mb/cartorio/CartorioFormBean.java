@@ -18,8 +18,8 @@ import br.com.domsantos.processoweb.service.CartorioSrv;
 @ManagedBean
 @RequestScoped
 @URLMappings(mappings = {
-		@URLMapping(id = "cartorioNovo", pattern = "/cartorio/novo", viewId = "/pages/sistema/cartorio/cartorioForm.jsf"),
-		@URLMapping(id = "cartorioEditar", pattern = "/cartorio/editar/#{cdCartorio : cartorioFormBean.cdCartorio}", viewId = "/pages/sistema/cartorio/cartorioForm.jsf") })
+		@URLMapping(id = "cartorioNovo", pattern = "/cartorio/novo", viewId = "/pages/sistema/cartorio/cartorioForm.jsf", parentId = "paginaRestrita"),
+		@URLMapping(id = "cartorioEditar", pattern = "/cartorio/editar/#{cdCartorio : cartorioFormBean.cdCartorio}", viewId = "/pages/sistema/cartorio/cartorioForm.jsf", parentId = "paginaRestrita") })
 public class CartorioFormBean extends PaginaBean {
 
 	private static final long serialVersionUID = 6167043013255626563L;

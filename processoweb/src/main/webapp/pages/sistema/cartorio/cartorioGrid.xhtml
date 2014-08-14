@@ -6,16 +6,17 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/sistema.xhtml">
+	<ui:define name="top_conteudo"><h2>Lista de Cartório</h2></ui:define>
 	<ui:define name="localizacao">
 		<h:link outcome="pretty:home" value="Home" /> / <h:link outcome="pretty:processoGrid" value="Processos"/> / <h:link outcome="pretty:cartorioNovo" value="Cartório"/> / Lista 
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form prependId="false" id="formGrid">
-		<p:fieldset legend="Lista de Cartórios">
+		
 			<h:panelGrid columns="1" cellspacing="2">
 				<p:commandButton value="Novo Cartorio" action="pretty:cartorioNovo"
 					ajax="false" immediate="true" process="@this"
-					styleClass="ui-priority-primary" />
+					styleClass="btn btn-flat btn-primary" />
 			</h:panelGrid>
 			<p:dataTable id="dataTable" var="cartorio"
 				value="#{cartorioGridBean.cartorios}" paginator="true" rows="10"
@@ -53,7 +54,7 @@
 					</h:link>
 				</p:column>
 			</p:dataTable>
-		</p:fieldset>
+		
 		</h:form>
 	</ui:define>
 </ui:composition>

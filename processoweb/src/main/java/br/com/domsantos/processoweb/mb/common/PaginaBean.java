@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.domsantos.common.FuncoesUteis;
 import br.com.domsantos.common.PaginacaoUtil;
 import br.com.domsantos.processoweb.model.Advogado;
+import br.com.domsantos.processoweb.model.Cadastro;
 
 public class PaginaBean implements Serializable {
 	

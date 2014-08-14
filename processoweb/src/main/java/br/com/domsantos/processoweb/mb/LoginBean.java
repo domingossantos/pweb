@@ -40,17 +40,29 @@ public class LoginBean extends PaginaBean{
 	public void abrir(){
 		cadastro = new Cadastro();
 		advogado = new Advogado();
+		removerAtributo(USUARIO_SESSAO);
 		usuarioLogado = false;
 	}
 	
 	public String logar(){
-		cadastro = cadastroSrv.getPorEmail(email);
-		return "pretty:home";
+		advogado = cadastroSrv.logar(email, senha);
+		
+		if(advogado != null) {
+			addAtributo(USUARIO_SESSAO, advogado);
+			cadastro = advogado.getCadastro();
+			
+			return "pretty:home";
+		} else {
+			addWarn("Erro ao entrar no sistema. Favor verifique seu Email e Eenha");
+			return "pretty:login";
+		}
 	}
 	
 	@URLAction(mappingId="logout", onPostback=false)
 	public String logout(){
 		cadastro = null;
+		advogado = null;
+		removerAtributo(USUARIO_SESSAO);
 		return "pretty:login";
 	}
 	
@@ -84,6 +96,14 @@ public class LoginBean extends PaginaBean{
 
 	public void setUsuarioLogado(boolean usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public Advogado getAdvogado() {
+		return advogado;
+	}
+
+	public void setAdvogado(Advogado advogado) {
+		this.advogado = advogado;
 	}
 	
 	

@@ -69,23 +69,23 @@
                                 
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email</label>
+                                            <label for="lbEmail">Email</label>
                                             <p:inputText id="lbEmail" required="true" requiredMessage="Informe o E-mail" maxlength="50" size="50" value="#{loginBean.email}" styleClass="form-control" />
                                             
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Senha</label>
+                                            <label for="lbSenha">Senha</label>
                                            
-                                           <p:password id="senha" required="true"
-							requiredMessage="Informe a senha" maxlength="20"
+                                           <p:password id="lbSenha" required="true" requiredMessage="Informe a senha" maxlength="20" 
 							value="#{loginBean.senha}" styleClass="form-control"/>
                                             
                                         </div>
                                     </div>
 
                                     <div class="box-footer">
-                                    <p:commandButton value="Entrar" icon="ui-icon-check"  action="#{loginBean.logar()}" ajax="false" />
-                                        
+                                    <p:commandButton value="Entrar" icon="ui-icon-check"  action="#{loginBean.logar()}" ajax="true" styleClass="btn btn-flat" />
+                                    <br/>
+                                    <p:messages id="msg" autoUpdate="true" severity="warn,info" showDetail="true" showSummary="false"></p:messages>    
                                     </div>
                                 </h:form>
                             </div>
