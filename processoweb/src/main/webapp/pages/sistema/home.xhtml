@@ -2,14 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	>
-
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/template/sistema.xhtml">
 	<ui:define name="top_conteudo"><h2>Resumo de atividades</h2></ui:define>
 	<ui:define name="localizacao">Home</ui:define>
 	<ui:define name="conteudo">
-		
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Processos Abertos:" for="lbAbertor"/>
 			<h:outputLabel value="5" id="lbAbertor"/>
@@ -20,8 +17,6 @@
 			<h:outputLabel value="Ultimo Acesso:" for="lbAcesso"/>
 			<h:outputLabel value="10/10/2011 20:00:12" id="lbAcesso"/>
 		</h:panelGrid>
-		
 	</ui:define>
 </ui:composition>
-
 </html>

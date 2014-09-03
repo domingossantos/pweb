@@ -5,21 +5,61 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/template/sistema.xhtml">
-	<ui:define name="localizacao"> <h:link outcome="pretty:home" value="Home"/> / Cadastro Processo </ui:define>
+<ui:composition template="/template/sistema_old.xhtml">
+	<ui:define name="top_conteudo"><h2>Processo</h2></ui:define>
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link
+			outcome="pretty:processosAbertosGrid" value="Processo" /> / cadastro
+	</ui:define>
 	<ui:define name="conteudo">
-		<p:fieldset legend="Cadastro de Processo">
-		<h:panelGrid columns="2">
-			<p:outputLabel value="Processos Abertos:" for="lbAbertor"/>
-			<p:outputLabel value="5" id="lbAbertor"/>
+		<h:form prependId="false" id="formGrid">
 			
-			<p:outputLabel value="Processos Fechados:" for="lbFechados"/>
-			<p:outputLabel value="15" id="lbFechados"/>
+				<h:panelGrid columns="3" cellspacing="10" styleClass="box-body">
+					
+					<h:outputLabel value="Nº Processo" for="txNomProc"/>
+					<p:inputText id="txNomProc" value="#{processoFormBean.processo.nrProcesso}" required="true" size="15" maxlength="15" styleClass="form-control"/>
+					<p:message for="txNomProc" />
+					
+					
+					<h:outputLabel value="Ano" for="txAno"/>
+					<p:inputText id="txAno" value="#{processoFormBean.processo.nrAno}"  size="10" maxlength="4" styleClass="form-control"/> 
+					<p:message for="txAno" />
+					
+					
+					<h:outputLabel value="Natureza" for="cbNatureza"/>
+					<p:selectOneMenu id="cbNatureza" value="#{processoFormBean.natureza}" converter="objConverter">
+						<f:selectItems var="natureza" value="#{processoFormBean.naturezas}" itemLabel="#{natureza.dsNatureza}" itemValue="#{natureza}"/>
+					</p:selectOneMenu>
+					<p:message for="cbNatureza" />
+					
+					
+					<h:outputLabel value="Prazo Processo" for="txDataProcesso"/>
+					<p:inputMask mask="99/99/9999" id="txDataProcesso" value="#{processoFormBean.processo.dtProcesso}"  size="10" maxlength="4" styleClass="form-control">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:inputMask> 
+					<p:message for="txDataProcesso" />
+					
+					
+					<h:outputLabel value="Autor" for="cbAutor"/>
+					<p:selectOneMenu id="cbAutor" value="#{processoFormBean.autor}" converter="objConverter">
+						<f:selectItems var="autor" value="#{processoFormBean.autores}" itemLabel="#{autor.nmParte}" itemValue="#{autor}"/>
+					</p:selectOneMenu>
+					<p:message for="cbAutor" />
+					
+					<h:outputLabel value="Reu" for="cbReu"/>
+					<p:selectOneMenu id="cbReu" value="#{processoFormBean.reu}" converter="objConverter">
+						<f:selectItems var="reu" value="#{processoFormBean.reus}" itemLabel="#{reu.nmParte}" itemValue="#{reu}"/>
+					</p:selectOneMenu>
+					<p:message for="cbReu" />
+					
+					
+					<p:commandButton action="#{processoFormBean.salvar()}" value="Salvar" ajax="false" process="@this"/>
+					
+							
+				</h:panelGrid>
+				
 			
-			<p:outputLabel value="Ultimo Acesso:" for="lbAcesso"/>
-			<p:outputLabel value="10/10/2011 20:00:12" id="lbAcesso"/>
-		</h:panelGrid>
-		</p:fieldset>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

@@ -5,29 +5,6 @@
 	<persistence-unit name="processowebPU" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/processowebDS</jta-data-source>
-		<class>br.com.domsantos.processoweb.model.Adverso</class>
-		<class>br.com.domsantos.processoweb.model.Advogado</class>
-		<class>br.com.domsantos.processoweb.model.Agenda</class>
-		<class>br.com.domsantos.processoweb.model.Agendajudicial</class>
-		<class>br.com.domsantos.processoweb.model.Andamento</class>
-		<class>br.com.domsantos.processoweb.model.Banco</class>
-		<class>br.com.domsantos.processoweb.model.Boletocadastro</class>
-		<class>br.com.domsantos.processoweb.model.Cartorio</class>
-		<class>br.com.domsantos.processoweb.model.Comarca</class>
-		<class>br.com.domsantos.processoweb.model.Conta</class>
-		<class>br.com.domsantos.processoweb.model.ContatoWeb</class>
-		<class>br.com.domsantos.processoweb.model.Favorito</class>
-		<class>br.com.domsantos.processoweb.model.ItemPedido</class>
-		<class>br.com.domsantos.processoweb.model.Log</class>
-		<class>br.com.domsantos.processoweb.model.Logacesso</class>
-		<class>br.com.domsantos.processoweb.model.Natureza</class>
-		<class>br.com.domsantos.processoweb.model.Parte</class>
-		<class>br.com.domsantos.processoweb.model.Pedido</class>
-		<class>br.com.domsantos.processoweb.model.Processo</class>
-		<class>br.com.domsantos.processoweb.model.Tipoconta</class>
-		<class>br.com.domsantos.processoweb.model.Varaforo</class>
-		<class>br.com.domsantos.processoweb.model.Processosrelacionado</class>
-		<class>br.com.domsantos.processoweb.model.Cadastro</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

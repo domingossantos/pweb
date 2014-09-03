@@ -42,14 +42,14 @@ public class CartorioFormBean extends PaginaBean {
 	public void abrir() {
 		if (cdCartorio == null) {
 			cartorio = new Cartorio();
-			cartorio.setCadastro(loginBean.getCadastro());
+			cartorio.setCdCadastro(loginBean.getCadastro());
 		} else {
 			cartorio = cartorioSrv.getPorId(cdCartorio);
 		}
 	}
 
-	public void salvar(){
-		
+	public String salvar(){
+		String path = "";
 		try{
 			if(cdCartorio != null){
 				cartorioSrv.atualizar(cartorio);
@@ -57,10 +57,12 @@ public class CartorioFormBean extends PaginaBean {
 				cartorioSrv.salvar(cartorio);
 			}
 			addInfo("Registro salvo com sucesso!");
+			path = "pretty:cartorioGrid";
 		}catch(Exception e){
 			addWarn("Erro ao salvar registro!");
 			System.out.println(e.getStackTrace());
 		}
+		return path;
 	}
 
 	

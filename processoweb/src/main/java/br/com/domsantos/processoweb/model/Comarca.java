@@ -1,106 +1,139 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The persistent class for the comarca database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="comarca")
-@NamedQuery(name="Comarca.findAll", query="SELECT c FROM Comarca c")
+@Table(name = "comarca")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Comarca.findAll", query = "SELECT c FROM Comarca c"),
+    @NamedQuery(name = "Comarca.findByCdComarca", query = "SELECT c FROM Comarca c WHERE c.cdComarca = :cdComarca"),
+    @NamedQuery(name = "Comarca.findByDsComarca", query = "SELECT c FROM Comarca c WHERE c.dsComarca = :dsComarca"),
+    @NamedQuery(name = "Comarca.findByNrFone", query = "SELECT c FROM Comarca c WHERE c.nrFone = :nrFone"),
+    @NamedQuery(name = "Comarca.findByNmContato", query = "SELECT c FROM Comarca c WHERE c.nmContato = :nmContato")})
 public class Comarca implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_comarca")
+    private Integer cdComarca;
+    @Column(name = "ds_comarca")
+    private String dsComarca;
+    @Column(name = "nr_fone")
+    private String nrFone;
+    @Column(name = "nm_contato")
+    private String nmContato;
+    @OneToMany(mappedBy = "cdComarca")
+    private List<Processo> processoList;
+    @JoinColumn(name = "cd_cadastro", referencedColumnName = "cd_cadastro")
+    @ManyToOne
+    private Cadastro cadastro;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_comarca")
-	private int cdComarca;
+    public Comarca() {
+    }
 
-	@Column(name="ds_comarca")
-	private String dsComarca;
+    public Comarca(Integer cdComarca) {
+        this.cdComarca = cdComarca;
+    }
 
-	@Column(name="nm_contato")
-	private String nmContato;
+    public Integer getCdComarca() {
+        return cdComarca;
+    }
 
-	@Column(name="nr_fone")
-	private String nrFone;
+    public void setCdComarca(Integer cdComarca) {
+        this.cdComarca = cdComarca;
+    }
 
-	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_cadastro")
-	private Cadastro cadastro;
+    public String getDsComarca() {
+        return dsComarca;
+    }
 
-	//bi-directional many-to-one association to Processo
-	@OneToMany(mappedBy="comarca")
-	private List<Processo> processos;
+    public void setDsComarca(String dsComarca) {
+        this.dsComarca = dsComarca;
+    }
 
-	public Comarca() {
-	}
+    public String getNrFone() {
+        return nrFone;
+    }
 
-	public int getCdComarca() {
-		return this.cdComarca;
-	}
+    public void setNrFone(String nrFone) {
+        this.nrFone = nrFone;
+    }
 
-	public void setCdComarca(int cdComarca) {
-		this.cdComarca = cdComarca;
-	}
+    public String getNmContato() {
+        return nmContato;
+    }
 
-	public String getDsComarca() {
-		return this.dsComarca;
-	}
+    public void setNmContato(String nmContato) {
+        this.nmContato = nmContato;
+    }
 
-	public void setDsComarca(String dsComarca) {
-		this.dsComarca = dsComarca;
-	}
+    @XmlTransient
+    public List<Processo> getProcessoList() {
+        return processoList;
+    }
 
-	public String getNmContato() {
-		return this.nmContato;
-	}
+    public void setProcessoList(List<Processo> processoList) {
+        this.processoList = processoList;
+    }
 
-	public void setNmContato(String nmContato) {
-		this.nmContato = nmContato;
-	}
+    public Cadastro getCdCadastro() {
+        return cadastro;
+    }
 
-	public String getNrFone() {
-		return this.nrFone;
-	}
+    public void setCdCadastro(Cadastro cdCadastro) {
+        this.cadastro = cdCadastro;
+    }
 
-	public void setNrFone(String nrFone) {
-		this.nrFone = nrFone;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdComarca != null ? cdComarca.hashCode() : 0);
+        return hash;
+    }
 
-	public Cadastro getCadastro() {
-		return this.cadastro;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Comarca)) {
+            return false;
+        }
+        Comarca other = (Comarca) object;
+        if ((this.cdComarca == null && other.cdComarca != null) || (this.cdComarca != null && !this.cdComarca.equals(other.cdComarca))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setCadastro(Cadastro cadastro) {
-		this.cadastro = cadastro;
-	}
-
-	public List<Processo> getProcessos() {
-		return this.processos;
-	}
-
-	public void setProcessos(List<Processo> processos) {
-		this.processos = processos;
-	}
-
-	public Processo addProcesso(Processo processo) {
-		getProcessos().add(processo);
-		processo.setComarca(this);
-
-		return processo;
-	}
-
-	public Processo removeProcesso(Processo processo) {
-		getProcessos().remove(processo);
-		processo.setComarca(null);
-
-		return processo;
-	}
-
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Comarca[ cdComarca=" + cdComarca + " ]";
+    }
+    
 }

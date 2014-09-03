@@ -1,183 +1,234 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The persistent class for the advogado database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="advogado")
-@NamedQuery(name="Advogado.findAll", query="SELECT a FROM Advogado a")
+@Table(name = "advogado")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Advogado.findAll", query = "SELECT a FROM Advogado a"),
+    @NamedQuery(name = "Advogado.findByCdAdvogado", query = "SELECT a FROM Advogado a WHERE a.cdAdvogado = :cdAdvogado"),
+    @NamedQuery(name = "Advogado.findByNrOab", query = "SELECT a FROM Advogado a WHERE a.nrOab = :nrOab"),
+    @NamedQuery(name = "Advogado.findByNmAdvogado", query = "SELECT a FROM Advogado a WHERE a.nmAdvogado = :nmAdvogado"),
+    @NamedQuery(name = "Advogado.findByNrFone", query = "SELECT a FROM Advogado a WHERE a.nrFone = :nrFone"),
+    @NamedQuery(name = "Advogado.findByDsLogin", query = "SELECT a FROM Advogado a WHERE a.dsLogin = :dsLogin"),
+    @NamedQuery(name = "Advogado.findByVlSenha", query = "SELECT a FROM Advogado a WHERE a.vlSenha = :vlSenha"),
+    @NamedQuery(name = "Advogado.findByNrCelular", query = "SELECT a FROM Advogado a WHERE a.nrCelular = :nrCelular"),
+    @NamedQuery(name = "Advogado.findByDsEmail", query = "SELECT a FROM Advogado a WHERE a.dsEmail = :dsEmail"),
+    @NamedQuery(name = "Advogado.findByTpAdv", query = "SELECT a FROM Advogado a WHERE a.tpAdv = :tpAdv"),
+    @NamedQuery(name = "Advogado.findByTpUsuario", query = "SELECT a FROM Advogado a WHERE a.tpUsuario = :tpUsuario"),
+    @NamedQuery(name = "Advogado.findByStMaster", query = "SELECT a FROM Advogado a WHERE a.stMaster = :stMaster")})
 public class Advogado implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_advogado")
+    private Integer cdAdvogado;
+    @Column(name = "nr_oab")
+    private String nrOab;
+    @Basic(optional = false)
+    @Column(name = "nm_advogado")
+    private String nmAdvogado;
+    @Basic(optional = false)
+    @Column(name = "nr_fone")
+    private String nrFone;
+    @Basic(optional = false)
+    @Column(name = "ds_login")
+    private String dsLogin;
+    @Basic(optional = false)
+    @Column(name = "vl_senha")
+    private String vlSenha;
+    @Basic(optional = false)
+    @Column(name = "nr_celular")
+    private String nrCelular;
+    @Basic(optional = false)
+    @Column(name = "ds_email")
+    private String dsEmail;
+    @Column(name = "tp_adv")
+    private Character tpAdv;
+    @Column(name = "tp_usuario")
+    private Character tpUsuario;
+    @Column(name = "st_master")
+    private Character stMaster;
+    @OneToMany(mappedBy = "cdAdvogado")
+    private List<Processo> processoList;
+    @JoinColumn(name = "cd_cadastro", referencedColumnName = "cd_cadastro")
+    @ManyToOne(optional = false,fetch=FetchType.EAGER)
+    private Cadastro cadastro;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_advogado")
-	private int cdAdvogado;
+    public Advogado() {
+    }
 
-	@Column(name="ds_email")
-	private String dsEmail;
+    public Advogado(Integer cdAdvogado) {
+        this.cdAdvogado = cdAdvogado;
+    }
 
-	@Column(name="ds_login")
-	private String dsLogin;
+    public Advogado(Integer cdAdvogado, String nmAdvogado, String nrFone, String dsLogin, String vlSenha, String nrCelular, String dsEmail) {
+        this.cdAdvogado = cdAdvogado;
+        this.nmAdvogado = nmAdvogado;
+        this.nrFone = nrFone;
+        this.dsLogin = dsLogin;
+        this.vlSenha = vlSenha;
+        this.nrCelular = nrCelular;
+        this.dsEmail = dsEmail;
+    }
 
-	@Column(name="nm_advogado")
-	private String nmAdvogado;
+    public Integer getCdAdvogado() {
+        return cdAdvogado;
+    }
 
-	@Column(name="nr_celular")
-	private String nrCelular;
+    public void setCdAdvogado(Integer cdAdvogado) {
+        this.cdAdvogado = cdAdvogado;
+    }
 
-	@Column(name="nr_fone")
-	private String nrFone;
+    public String getNrOab() {
+        return nrOab;
+    }
 
-	@Column(name="nr_oab")
-	private String nrOab;
+    public void setNrOab(String nrOab) {
+        this.nrOab = nrOab;
+    }
 
-	@Column(name="st_master")
-	private String stMaster;
+    public String getNmAdvogado() {
+        return nmAdvogado;
+    }
 
-	@Column(name="tp_adv")
-	private String tpAdv;
+    public void setNmAdvogado(String nmAdvogado) {
+        this.nmAdvogado = nmAdvogado;
+    }
 
-	@Column(name="tp_usuario")
-	private String tpUsuario;
+    public String getNrFone() {
+        return nrFone;
+    }
 
-	@Column(name="vl_senha")
-	private String vlSenha;
+    public void setNrFone(String nrFone) {
+        this.nrFone = nrFone;
+    }
 
-	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="cd_cadastro")
-	private Cadastro cadastro;
+    public String getDsLogin() {
+        return dsLogin;
+    }
 
-	//bi-directional many-to-one association to Processo
-	@OneToMany(mappedBy="advogado")
-	private List<Processo> processos;
+    public void setDsLogin(String dsLogin) {
+        this.dsLogin = dsLogin;
+    }
 
-	public Advogado() {
-	}
+    public String getVlSenha() {
+        return vlSenha;
+    }
 
-	public int getCdAdvogado() {
-		return this.cdAdvogado;
-	}
+    public void setVlSenha(String vlSenha) {
+        this.vlSenha = vlSenha;
+    }
 
-	public void setCdAdvogado(int cdAdvogado) {
-		this.cdAdvogado = cdAdvogado;
-	}
+    public String getNrCelular() {
+        return nrCelular;
+    }
 
-	public String getDsEmail() {
-		return this.dsEmail;
-	}
+    public void setNrCelular(String nrCelular) {
+        this.nrCelular = nrCelular;
+    }
 
-	public void setDsEmail(String dsEmail) {
-		this.dsEmail = dsEmail;
-	}
+    public String getDsEmail() {
+        return dsEmail;
+    }
 
-	public String getDsLogin() {
-		return this.dsLogin;
-	}
+    public void setDsEmail(String dsEmail) {
+        this.dsEmail = dsEmail;
+    }
 
-	public void setDsLogin(String dsLogin) {
-		this.dsLogin = dsLogin;
-	}
+    public Character getTpAdv() {
+        return tpAdv;
+    }
 
-	public String getNmAdvogado() {
-		return this.nmAdvogado;
-	}
+    public void setTpAdv(Character tpAdv) {
+        this.tpAdv = tpAdv;
+    }
 
-	public void setNmAdvogado(String nmAdvogado) {
-		this.nmAdvogado = nmAdvogado;
-	}
+    public Character getTpUsuario() {
+        return tpUsuario;
+    }
 
-	public String getNrCelular() {
-		return this.nrCelular;
-	}
+    public void setTpUsuario(Character tpUsuario) {
+        this.tpUsuario = tpUsuario;
+    }
 
-	public void setNrCelular(String nrCelular) {
-		this.nrCelular = nrCelular;
-	}
+    public Character getStMaster() {
+        return stMaster;
+    }
 
-	public String getNrFone() {
-		return this.nrFone;
-	}
+    public void setStMaster(Character stMaster) {
+        this.stMaster = stMaster;
+    }
 
-	public void setNrFone(String nrFone) {
-		this.nrFone = nrFone;
-	}
+    @XmlTransient
+    public List<Processo> getProcessoList() {
+        return processoList;
+    }
 
-	public String getNrOab() {
-		return this.nrOab;
-	}
+    public void setProcessoList(List<Processo> processoList) {
+        this.processoList = processoList;
+    }
 
-	public void setNrOab(String nrOab) {
-		this.nrOab = nrOab;
-	}
+    public Cadastro getCdCadastro() {
+        return cadastro;
+    }
 
-	public String getStMaster() {
-		return this.stMaster;
-	}
+    public void setCdCadastro(Cadastro cdCadastro) {
+        this.cadastro = cdCadastro;
+    }
 
-	public void setStMaster(String stMaster) {
-		this.stMaster = stMaster;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdAdvogado != null ? cdAdvogado.hashCode() : 0);
+        return hash;
+    }
 
-	public String getTpAdv() {
-		return this.tpAdv;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Advogado)) {
+            return false;
+        }
+        Advogado other = (Advogado) object;
+        if ((this.cdAdvogado == null && other.cdAdvogado != null) || (this.cdAdvogado != null && !this.cdAdvogado.equals(other.cdAdvogado))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setTpAdv(String tpAdv) {
-		this.tpAdv = tpAdv;
-	}
-
-	public String getTpUsuario() {
-		return this.tpUsuario;
-	}
-
-	public void setTpUsuario(String tpUsuario) {
-		this.tpUsuario = tpUsuario;
-	}
-
-	public String getVlSenha() {
-		return this.vlSenha;
-	}
-
-	public void setVlSenha(String vlSenha) {
-		this.vlSenha = vlSenha;
-	}
-
-	public Cadastro getCadastro() {
-		return this.cadastro;
-	}
-
-	public void setCadastro(Cadastro cadastro) {
-		this.cadastro = cadastro;
-	}
-
-	public List<Processo> getProcessos() {
-		return this.processos;
-	}
-
-	public void setProcessos(List<Processo> processos) {
-		this.processos = processos;
-	}
-
-	public Processo addProcesso(Processo processo) {
-		getProcessos().add(processo);
-		processo.setAdvogado(this);
-
-		return processo;
-	}
-
-	public Processo removeProcesso(Processo processo) {
-		getProcessos().remove(processo);
-		processo.setAdvogado(null);
-
-		return processo;
-	}
-
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Advogado[ cdAdvogado=" + cdAdvogado + " ]";
+    }
+    
 }

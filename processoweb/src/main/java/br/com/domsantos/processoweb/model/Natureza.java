@@ -1,84 +1,117 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The persistent class for the natureza database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="natureza")
-@NamedQuery(name="Natureza.findAll", query="SELECT n FROM Natureza n")
+@Table(name = "natureza")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Natureza.findAll", query = "SELECT n FROM Natureza n"),
+    @NamedQuery(name = "Natureza.findByCdNatureza", query = "SELECT n FROM Natureza n WHERE n.cdNatureza = :cdNatureza"),
+    @NamedQuery(name = "Natureza.findByDsNatureza", query = "SELECT n FROM Natureza n WHERE n.dsNatureza = :dsNatureza")})
 public class Natureza implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_natureza")
+    private Integer cdNatureza;
+    @Column(name = "ds_natureza")
+    private String dsNatureza;
+    @OneToMany(mappedBy = "cdNatcausa")
+    private List<Processo> processoList;
+    @JoinColumn(name = "cd_cadastro", referencedColumnName = "cd_cadastro")
+    @ManyToOne(optional = false)
+    private Cadastro cadastro;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_natureza")
-	private int cdNatureza;
+    public Natureza() {
+    }
 
-	@Column(name="ds_natureza")
-	private String dsNatureza;
+    public Natureza(Integer cdNatureza) {
+        this.cdNatureza = cdNatureza;
+    }
 
-	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_cadastro")
-	private Cadastro cadastro;
+    public Integer getCdNatureza() {
+        return cdNatureza;
+    }
 
-	//bi-directional many-to-one association to Processo
-	@OneToMany(mappedBy="natureza")
-	private List<Processo> processos;
+    public void setCdNatureza(Integer cdNatureza) {
+        this.cdNatureza = cdNatureza;
+    }
 
-	public Natureza() {
-	}
+    public String getDsNatureza() {
+        return dsNatureza;
+    }
 
-	public int getCdNatureza() {
-		return this.cdNatureza;
-	}
+    public void setDsNatureza(String dsNatureza) {
+        this.dsNatureza = dsNatureza;
+    }
 
-	public void setCdNatureza(int cdNatureza) {
-		this.cdNatureza = cdNatureza;
-	}
+    @XmlTransient
+    public List<Processo> getProcessoList() {
+        return processoList;
+    }
 
-	public String getDsNatureza() {
-		return this.dsNatureza;
-	}
+    public void setProcessoList(List<Processo> processoList) {
+        this.processoList = processoList;
+    }
 
-	public void setDsNatureza(String dsNatureza) {
-		this.dsNatureza = dsNatureza;
-	}
+    public Cadastro getCdCadastro() {
+        return cadastro;
+    }
 
-	public Cadastro getCadastro() {
-		return this.cadastro;
-	}
+    public void setCdCadastro(Cadastro cdCadastro) {
+        this.cadastro = cdCadastro;
+    }
 
-	public void setCadastro(Cadastro cadastro) {
-		this.cadastro = cadastro;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdNatureza != null ? cdNatureza.hashCode() : 0);
+        return hash;
+    }
 
-	public List<Processo> getProcessos() {
-		return this.processos;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Natureza)) {
+            return false;
+        }
+        Natureza other = (Natureza) object;
+        if ((this.cdNatureza == null && other.cdNatureza != null) || (this.cdNatureza != null && !this.cdNatureza.equals(other.cdNatureza))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setProcessos(List<Processo> processos) {
-		this.processos = processos;
-	}
-
-	public Processo addProcesso(Processo processo) {
-		getProcessos().add(processo);
-		processo.setNatureza(this);
-
-		return processo;
-	}
-
-	public Processo removeProcesso(Processo processo) {
-		getProcessos().remove(processo);
-		processo.setNatureza(null);
-
-		return processo;
-	}
-
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Natureza[ cdNatureza=" + cdNatureza + " ]";
+    }
+    
 }

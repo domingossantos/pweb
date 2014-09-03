@@ -59,7 +59,7 @@ public class AdversoFormBean extends PaginaBean {
 			if (idAdverso != null) {
 				adversoSrv.atualizar(adverso);
 			} else {
-				adverso.setCadastro(loginBean.getCadastro());
+				adverso.setCdCadastro(loginBean.getCadastro());
 				adversoSrv.salvar(adverso);
 			}
 			addInfo("Registro Salvo!");

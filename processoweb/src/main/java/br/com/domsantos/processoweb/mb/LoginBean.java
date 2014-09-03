@@ -49,7 +49,7 @@ public class LoginBean extends PaginaBean{
 		
 		if(advogado != null) {
 			addAtributo(USUARIO_SESSAO, advogado);
-			cadastro = advogado.getCadastro();
+			cadastro = advogado.getCdCadastro();
 			
 			return "pretty:home";
 		} else {

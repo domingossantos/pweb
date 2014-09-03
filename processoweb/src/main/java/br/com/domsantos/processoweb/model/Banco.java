@@ -1,80 +1,137 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * The persistent class for the banco database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="banco")
-@NamedQuery(name="Banco.findAll", query="SELECT b FROM Banco b")
+@Table(name = "banco")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
+    @NamedQuery(name = "Banco.findByCdBanco", query = "SELECT b FROM Banco b WHERE b.cdBanco = :cdBanco"),
+    @NamedQuery(name = "Banco.findByCdAdvogado", query = "SELECT b FROM Banco b WHERE b.cdAdvogado = :cdAdvogado"),
+    @NamedQuery(name = "Banco.findByDsBanco", query = "SELECT b FROM Banco b WHERE b.dsBanco = :dsBanco"),
+    @NamedQuery(name = "Banco.findByVlBanco", query = "SELECT b FROM Banco b WHERE b.vlBanco = :vlBanco")})
 public class Banco implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_banco")
+    private Integer cdBanco;
+    @Basic(optional = false)
+    @Column(name = "cd_advogado")
+    private int cdAdvogado;
+    @Basic(optional = false)
+    @Column(name = "ds_banco")
+    private String dsBanco;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @Column(name = "vl_banco")
+    private BigDecimal vlBanco;
+    @JoinColumn(name = "cd_processo", referencedColumnName = "cd_processo")
+    @ManyToOne(optional = false)
+    private Processo processo;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_banco")
-	private int cdBanco;
+    public Banco() {
+    }
 
-	@Column(name="cd_advogado")
-	private int cdAdvogado;
+    public Banco(Integer cdBanco) {
+        this.cdBanco = cdBanco;
+    }
 
-	@Column(name="ds_banco")
-	private String dsBanco;
+    public Banco(Integer cdBanco, int cdAdvogado, String dsBanco, BigDecimal vlBanco) {
+        this.cdBanco = cdBanco;
+        this.cdAdvogado = cdAdvogado;
+        this.dsBanco = dsBanco;
+        this.vlBanco = vlBanco;
+    }
 
-	@Column(name="vl_banco")
-	private BigDecimal vlBanco;
+    public Integer getCdBanco() {
+        return cdBanco;
+    }
 
-	//bi-directional many-to-one association to Processo
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_processo")
-	private Processo processo;
+    public void setCdBanco(Integer cdBanco) {
+        this.cdBanco = cdBanco;
+    }
 
-	public Banco() {
-	}
+    public int getCdAdvogado() {
+        return cdAdvogado;
+    }
 
-	public int getCdBanco() {
-		return this.cdBanco;
-	}
+    public void setCdAdvogado(int cdAdvogado) {
+        this.cdAdvogado = cdAdvogado;
+    }
 
-	public void setCdBanco(int cdBanco) {
-		this.cdBanco = cdBanco;
-	}
+    public String getDsBanco() {
+        return dsBanco;
+    }
 
-	public int getCdAdvogado() {
-		return this.cdAdvogado;
-	}
+    public void setDsBanco(String dsBanco) {
+        this.dsBanco = dsBanco;
+    }
 
-	public void setCdAdvogado(int cdAdvogado) {
-		this.cdAdvogado = cdAdvogado;
-	}
+    public BigDecimal getVlBanco() {
+        return vlBanco;
+    }
 
-	public String getDsBanco() {
-		return this.dsBanco;
-	}
+    public void setVlBanco(BigDecimal vlBanco) {
+        this.vlBanco = vlBanco;
+    }
 
-	public void setDsBanco(String dsBanco) {
-		this.dsBanco = dsBanco;
-	}
+    public Processo getCdProcesso() {
+        return processo;
+    }
 
-	public BigDecimal getVlBanco() {
-		return this.vlBanco;
-	}
+    public void setCdProcesso(Processo cdProcesso) {
+        this.processo = cdProcesso;
+    }
 
-	public void setVlBanco(BigDecimal vlBanco) {
-		this.vlBanco = vlBanco;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdBanco != null ? cdBanco.hashCode() : 0);
+        return hash;
+    }
 
-	public Processo getProcesso() {
-		return this.processo;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Banco)) {
+            return false;
+        }
+        Banco other = (Banco) object;
+        if ((this.cdBanco == null && other.cdBanco != null) || (this.cdBanco != null && !this.cdBanco.equals(other.cdBanco))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setProcesso(Processo processo) {
-		this.processo = processo;
-	}
-
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Banco[ cdBanco=" + cdBanco + " ]";
+    }
+    
 }

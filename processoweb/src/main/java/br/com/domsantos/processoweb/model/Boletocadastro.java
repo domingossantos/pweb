@@ -1,92 +1,140 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * The persistent class for the boletocadastro database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="boletocadastro")
-@NamedQuery(name="Boletocadastro.findAll", query="SELECT b FROM Boletocadastro b")
+@Table(name = "boletocadastro")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Boletocadastro.findAll", query = "SELECT b FROM Boletocadastro b"),
+    @NamedQuery(name = "Boletocadastro.findByCdBoletocadastro", query = "SELECT b FROM Boletocadastro b WHERE b.cdBoletocadastro = :cdBoletocadastro"),
+    @NamedQuery(name = "Boletocadastro.findByVlNossonumero", query = "SELECT b FROM Boletocadastro b WHERE b.vlNossonumero = :vlNossonumero"),
+    @NamedQuery(name = "Boletocadastro.findByDtVencimento", query = "SELECT b FROM Boletocadastro b WHERE b.dtVencimento = :dtVencimento"),
+    @NamedQuery(name = "Boletocadastro.findByVlBoleto", query = "SELECT b FROM Boletocadastro b WHERE b.vlBoleto = :vlBoleto"),
+    @NamedQuery(name = "Boletocadastro.findByStBoleto", query = "SELECT b FROM Boletocadastro b WHERE b.stBoleto = :stBoleto")})
 public class Boletocadastro implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_boletocadastro")
+    private Integer cdBoletocadastro;
+    @Column(name = "vl_nossonumero")
+    private String vlNossonumero;
+    @Column(name = "dt_vencimento")
+    @Temporal(TemporalType.DATE)
+    private Date dtVencimento;
+    @Column(name = "vl_boleto")
+    private String vlBoleto;
+    @Column(name = "st_boleto")
+    private Character stBoleto;
+    @JoinColumn(name = "cd_cadastro", referencedColumnName = "cd_cadastro")
+    @ManyToOne
+    private Cadastro cadastro;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_boletocadastro")
-	private int cdBoletocadastro;
+    public Boletocadastro() {
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_vencimento")
-	private Date dtVencimento;
+    public Boletocadastro(Integer cdBoletocadastro) {
+        this.cdBoletocadastro = cdBoletocadastro;
+    }
 
-	@Column(name="st_boleto")
-	private String stBoleto;
+    public Integer getCdBoletocadastro() {
+        return cdBoletocadastro;
+    }
 
-	@Column(name="vl_boleto")
-	private String vlBoleto;
+    public void setCdBoletocadastro(Integer cdBoletocadastro) {
+        this.cdBoletocadastro = cdBoletocadastro;
+    }
 
-	@Column(name="vl_nossonumero")
-	private String vlNossonumero;
+    public String getVlNossonumero() {
+        return vlNossonumero;
+    }
 
-	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_cadastro")
-	private Cadastro cadastro;
+    public void setVlNossonumero(String vlNossonumero) {
+        this.vlNossonumero = vlNossonumero;
+    }
 
-	public Boletocadastro() {
-	}
+    public Date getDtVencimento() {
+        return dtVencimento;
+    }
 
-	public int getCdBoletocadastro() {
-		return this.cdBoletocadastro;
-	}
+    public void setDtVencimento(Date dtVencimento) {
+        this.dtVencimento = dtVencimento;
+    }
 
-	public void setCdBoletocadastro(int cdBoletocadastro) {
-		this.cdBoletocadastro = cdBoletocadastro;
-	}
+    public String getVlBoleto() {
+        return vlBoleto;
+    }
 
-	public Date getDtVencimento() {
-		return this.dtVencimento;
-	}
+    public void setVlBoleto(String vlBoleto) {
+        this.vlBoleto = vlBoleto;
+    }
 
-	public void setDtVencimento(Date dtVencimento) {
-		this.dtVencimento = dtVencimento;
-	}
+    public Character getStBoleto() {
+        return stBoleto;
+    }
 
-	public String getStBoleto() {
-		return this.stBoleto;
-	}
+    public void setStBoleto(Character stBoleto) {
+        this.stBoleto = stBoleto;
+    }
 
-	public void setStBoleto(String stBoleto) {
-		this.stBoleto = stBoleto;
-	}
+    public Cadastro getCdCadastro() {
+        return cadastro;
+    }
 
-	public String getVlBoleto() {
-		return this.vlBoleto;
-	}
+    public void setCdCadastro(Cadastro cdCadastro) {
+        this.cadastro = cdCadastro;
+    }
 
-	public void setVlBoleto(String vlBoleto) {
-		this.vlBoleto = vlBoleto;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdBoletocadastro != null ? cdBoletocadastro.hashCode() : 0);
+        return hash;
+    }
 
-	public String getVlNossonumero() {
-		return this.vlNossonumero;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Boletocadastro)) {
+            return false;
+        }
+        Boletocadastro other = (Boletocadastro) object;
+        if ((this.cdBoletocadastro == null && other.cdBoletocadastro != null) || (this.cdBoletocadastro != null && !this.cdBoletocadastro.equals(other.cdBoletocadastro))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setVlNossonumero(String vlNossonumero) {
-		this.vlNossonumero = vlNossonumero;
-	}
-
-	public Cadastro getCadastro() {
-		return this.cadastro;
-	}
-
-	public void setCadastro(Cadastro cadastro) {
-		this.cadastro = cadastro;
-	}
-
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Boletocadastro[ cdBoletocadastro=" + cdBoletocadastro + " ]";
+    }
+    
 }

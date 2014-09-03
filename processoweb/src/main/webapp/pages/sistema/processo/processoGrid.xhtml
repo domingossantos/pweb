@@ -6,20 +6,33 @@
       xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/sistema.xhtml">
+	<ui:define name="top_conteudo"><h2>Processos Abertos</h2></ui:define>
 	<ui:define name="localizacao"> <h:link outcome="pretty:home" value="Home"/> / Cadastro Processo </ui:define>
 	<ui:define name="conteudo">
-		<p:fieldset legend="Cadastro de Processo">
-		<h:panelGrid columns="2">
-			<p:outputLabel value="Processos Abertos:" for="lbAbertor"/>
-			<p:outputLabel value="5" id="lbAbertor"/>
-			
-			<p:outputLabel value="Processos Fechados:" for="lbFechados"/>
-			<p:outputLabel value="15" id="lbFechados"/>
-			
-			<p:outputLabel value="Ultimo Acesso:" for="lbAcesso"/>
-			<p:outputLabel value="10/10/2011 20:00:12" id="lbAcesso"/>
-		</h:panelGrid>
-		</p:fieldset>
+		<h:form prependId="false" id="formGrid">
+			<h:panelGrid columns="1" cellspacing="2">
+				<p:commandButton value="Novo Processo" action="pretty:processoNovo"
+					ajax="false" immediate="true" process="@this"
+					styleClass="btn  btn-primary btn-flat" />
+			</h:panelGrid>
+			<p:dataTable id="dataTable" var="p"
+				value="#{processoGridBean.processos}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Processo" />
+					</f:facet>
+					<h:outputText value="#{p.nrProcesso / p.nrAno}"/>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Cliente" />
+					</f:facet>
+					<h:outputText value="#{p.cartorio.nmContato}"/>
+				</p:column>
+			</p:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

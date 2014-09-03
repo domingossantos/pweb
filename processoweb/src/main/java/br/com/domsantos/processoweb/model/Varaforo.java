@@ -1,106 +1,149 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The persistent class for the varaforo database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="varaforo")
-@NamedQuery(name="Varaforo.findAll", query="SELECT v FROM Varaforo v")
+@Table(name = "varaforo")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Varaforo.findAll", query = "SELECT v FROM Varaforo v"),
+    @NamedQuery(name = "Varaforo.findByCdVaraforo", query = "SELECT v FROM Varaforo v WHERE v.cdVaraforo = :cdVaraforo"),
+    @NamedQuery(name = "Varaforo.findByDsVaraforo", query = "SELECT v FROM Varaforo v WHERE v.dsVaraforo = :dsVaraforo"),
+    @NamedQuery(name = "Varaforo.findByNrFone", query = "SELECT v FROM Varaforo v WHERE v.nrFone = :nrFone"),
+    @NamedQuery(name = "Varaforo.findByDsContato", query = "SELECT v FROM Varaforo v WHERE v.dsContato = :dsContato")})
 public class Varaforo implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_varaforo")
+    private Integer cdVaraforo;
+    @Basic(optional = false)
+    @Column(name = "ds_varaforo")
+    private String dsVaraforo;
+    @Basic(optional = false)
+    @Column(name = "nr_fone")
+    private String nrFone;
+    @Basic(optional = false)
+    @Column(name = "ds_contato")
+    private String dsContato;
+    @OneToMany(mappedBy = "cdVaraforo")
+    private List<Processo> processoList;
+    @JoinColumn(name = "cd_cadastro", referencedColumnName = "cd_cadastro")
+    @ManyToOne(optional = false)
+    private Cadastro cadastro;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_varaforo")
-	private int cdVaraforo;
+    public Varaforo() {
+    }
 
-	@Column(name="ds_contato")
-	private String dsContato;
+    public Varaforo(Integer cdVaraforo) {
+        this.cdVaraforo = cdVaraforo;
+    }
 
-	@Column(name="ds_varaforo")
-	private String dsVaraforo;
+    public Varaforo(Integer cdVaraforo, String dsVaraforo, String nrFone, String dsContato) {
+        this.cdVaraforo = cdVaraforo;
+        this.dsVaraforo = dsVaraforo;
+        this.nrFone = nrFone;
+        this.dsContato = dsContato;
+    }
 
-	@Column(name="nr_fone")
-	private String nrFone;
+    public Integer getCdVaraforo() {
+        return cdVaraforo;
+    }
 
-	//bi-directional many-to-one association to Processo
-	@OneToMany(mappedBy="varaforo")
-	private List<Processo> processos;
+    public void setCdVaraforo(Integer cdVaraforo) {
+        this.cdVaraforo = cdVaraforo;
+    }
 
-	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_cadastro")
-	private Cadastro cadastro;
+    public String getDsVaraforo() {
+        return dsVaraforo;
+    }
 
-	public Varaforo() {
-	}
+    public void setDsVaraforo(String dsVaraforo) {
+        this.dsVaraforo = dsVaraforo;
+    }
 
-	public int getCdVaraforo() {
-		return this.cdVaraforo;
-	}
+    public String getNrFone() {
+        return nrFone;
+    }
 
-	public void setCdVaraforo(int cdVaraforo) {
-		this.cdVaraforo = cdVaraforo;
-	}
+    public void setNrFone(String nrFone) {
+        this.nrFone = nrFone;
+    }
 
-	public String getDsContato() {
-		return this.dsContato;
-	}
+    public String getDsContato() {
+        return dsContato;
+    }
 
-	public void setDsContato(String dsContato) {
-		this.dsContato = dsContato;
-	}
+    public void setDsContato(String dsContato) {
+        this.dsContato = dsContato;
+    }
 
-	public String getDsVaraforo() {
-		return this.dsVaraforo;
-	}
+    @XmlTransient
+    public List<Processo> getProcessoList() {
+        return processoList;
+    }
 
-	public void setDsVaraforo(String dsVaraforo) {
-		this.dsVaraforo = dsVaraforo;
-	}
+    public void setProcessoList(List<Processo> processoList) {
+        this.processoList = processoList;
+    }
 
-	public String getNrFone() {
-		return this.nrFone;
-	}
+    public Cadastro getCdCadastro() {
+        return cadastro;
+    }
 
-	public void setNrFone(String nrFone) {
-		this.nrFone = nrFone;
-	}
+    public void setCdCadastro(Cadastro cdCadastro) {
+        this.cadastro = cdCadastro;
+    }
 
-	public List<Processo> getProcessos() {
-		return this.processos;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdVaraforo != null ? cdVaraforo.hashCode() : 0);
+        return hash;
+    }
 
-	public void setProcessos(List<Processo> processos) {
-		this.processos = processos;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Varaforo)) {
+            return false;
+        }
+        Varaforo other = (Varaforo) object;
+        if ((this.cdVaraforo == null && other.cdVaraforo != null) || (this.cdVaraforo != null && !this.cdVaraforo.equals(other.cdVaraforo))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Processo addProcesso(Processo processo) {
-		getProcessos().add(processo);
-		processo.setVaraforo(this);
-
-		return processo;
-	}
-
-	public Processo removeProcesso(Processo processo) {
-		getProcessos().remove(processo);
-		processo.setVaraforo(null);
-
-		return processo;
-	}
-
-	public Cadastro getCadastro() {
-		return this.cadastro;
-	}
-
-	public void setCadastro(Cadastro cadastro) {
-		this.cadastro = cadastro;
-	}
-
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Varaforo[ cdVaraforo=" + cdVaraforo + " ]";
+    }
+    
 }

@@ -1,369 +1,355 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.domsantos.processoweb.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The persistent class for the processo database table.
- * 
+ *
+ * @author domingos
  */
 @Entity
-@Table(name="processo")
-@NamedQuery(name="Processo.findAll", query="SELECT p FROM Processo p")
+@Table(name = "processo")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Processo.findAll", query = "SELECT p FROM Processo p"),
+    @NamedQuery(name = "Processo.findByCdProcesso", query = "SELECT p FROM Processo p WHERE p.cdProcesso = :cdProcesso"),
+    @NamedQuery(name = "Processo.findByNrProcCartorio", query = "SELECT p FROM Processo p WHERE p.nrProcCartorio = :nrProcCartorio"),
+    @NamedQuery(name = "Processo.findByDtProcesso", query = "SELECT p FROM Processo p WHERE p.dtProcesso = :dtProcesso"),
+    @NamedQuery(name = "Processo.findByVlProcesso", query = "SELECT p FROM Processo p WHERE p.vlProcesso = :vlProcesso"),
+    @NamedQuery(name = "Processo.findByNrAno", query = "SELECT p FROM Processo p WHERE p.nrAno = :nrAno"),
+    @NamedQuery(name = "Processo.findByNrProcesso", query = "SELECT p FROM Processo p WHERE p.nrProcesso = :nrProcesso"),
+    @NamedQuery(name = "Processo.findByStProcesso", query = "SELECT p FROM Processo p WHERE p.stProcesso = :stProcesso"),
+    @NamedQuery(name = "Processo.findByDsPasta", query = "SELECT p FROM Processo p WHERE p.dsPasta = :dsPasta"),
+    @NamedQuery(name = "Processo.findByCdEstagiario", query = "SELECT p FROM Processo p WHERE p.cdEstagiario = :cdEstagiario"),
+    @NamedQuery(name = "Processo.findByCdCliente", query = "SELECT p FROM Processo p WHERE p.cdCliente = :cdCliente")})
 public class Processo implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cd_processo")
-	private int cdProcesso;
-
-	@Column(name="cd_cliente")
-	private int cdCliente;
-
-	@Column(name="cd_estagiario")
-	private int cdEstagiario;
-
-	@Lob
-	@Column(name="ds_obs")
-	private String dsObs;
-
-	@Column(name="ds_pasta")
-	private String dsPasta;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="dt_processo")
-	private Date dtProcesso;
-
-	@Column(name="nr_ano")
-	private String nrAno;
-
-	@Column(name="nr_proc_cartorio")
-	private String nrProcCartorio;
-
-	@Column(name="nr_processo")
-	private String nrProcesso;
-
-	@Column(name="st_processo")
-	private String stProcesso;
-
-	@Column(name="vl_processo")
-	private BigDecimal vlProcesso;
-
-	//bi-directional many-to-one association to Agendajudicial
-	@OneToMany(mappedBy="processo")
-	private List<Agendajudicial> agendajudicials;
-
-	//bi-directional many-to-one association to Andamento
-	@OneToMany(mappedBy="processo")
-	private List<Andamento> andamentos;
-
-	//bi-directional many-to-one association to Banco
-	@OneToMany(mappedBy="processo")
-	private List<Banco> bancos;
-
-	//bi-directional many-to-one association to Conta
-	@OneToMany(mappedBy="processo")
-	private List<Conta> contas;
-
-	//bi-directional many-to-one association to Cadastro
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_cadastro")
-	private Cadastro cadastro;
-
-	//bi-directional many-to-one association to Parte
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_reu")
-	private Parte parte1;
-
-	//bi-directional many-to-one association to Parte
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_parte")
-	private Parte parte2;
-
-	//bi-directional many-to-one association to Advogado
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_advogado")
-	private Advogado advogado;
-
-	//bi-directional many-to-one association to Natureza
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_natcausa")
-	private Natureza natureza;
-
-	//bi-directional many-to-one association to Varaforo
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_varaforo")
-	private Varaforo varaforo;
-
-	//bi-directional many-to-one association to Comarca
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_comarca")
-	private Comarca comarca;
-
-	//bi-directional many-to-one association to Adverso
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_adverso")
-	private Adverso adverso;
-
-	//bi-directional many-to-one association to Cartorio
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cd_cartorio")
-	private Cartorio cartorio;
-
-	public Processo() {
-	}
-
-	public int getCdProcesso() {
-		return this.cdProcesso;
-	}
-
-	public void setCdProcesso(int cdProcesso) {
-		this.cdProcesso = cdProcesso;
-	}
-
-	public int getCdCliente() {
-		return this.cdCliente;
-	}
-
-	public void setCdCliente(int cdCliente) {
-		this.cdCliente = cdCliente;
-	}
-
-	public int getCdEstagiario() {
-		return this.cdEstagiario;
-	}
-
-	public void setCdEstagiario(int cdEstagiario) {
-		this.cdEstagiario = cdEstagiario;
-	}
-
-	public String getDsObs() {
-		return this.dsObs;
-	}
-
-	public void setDsObs(String dsObs) {
-		this.dsObs = dsObs;
-	}
-
-	public String getDsPasta() {
-		return this.dsPasta;
-	}
-
-	public void setDsPasta(String dsPasta) {
-		this.dsPasta = dsPasta;
-	}
-
-	public Date getDtProcesso() {
-		return this.dtProcesso;
-	}
-
-	public void setDtProcesso(Date dtProcesso) {
-		this.dtProcesso = dtProcesso;
-	}
-
-	public String getNrAno() {
-		return this.nrAno;
-	}
-
-	public void setNrAno(String nrAno) {
-		this.nrAno = nrAno;
-	}
-
-	public String getNrProcCartorio() {
-		return this.nrProcCartorio;
-	}
-
-	public void setNrProcCartorio(String nrProcCartorio) {
-		this.nrProcCartorio = nrProcCartorio;
-	}
-
-	public String getNrProcesso() {
-		return this.nrProcesso;
-	}
-
-	public void setNrProcesso(String nrProcesso) {
-		this.nrProcesso = nrProcesso;
-	}
-
-	public String getStProcesso() {
-		return this.stProcesso;
-	}
-
-	public void setStProcesso(String stProcesso) {
-		this.stProcesso = stProcesso;
-	}
-
-	public BigDecimal getVlProcesso() {
-		return this.vlProcesso;
-	}
-
-	public void setVlProcesso(BigDecimal vlProcesso) {
-		this.vlProcesso = vlProcesso;
-	}
-
-	public List<Agendajudicial> getAgendajudicials() {
-		return this.agendajudicials;
-	}
-
-	public void setAgendajudicials(List<Agendajudicial> agendajudicials) {
-		this.agendajudicials = agendajudicials;
-	}
-
-	public Agendajudicial addAgendajudicial(Agendajudicial agendajudicial) {
-		getAgendajudicials().add(agendajudicial);
-		agendajudicial.setProcesso(this);
-
-		return agendajudicial;
-	}
-
-	public Agendajudicial removeAgendajudicial(Agendajudicial agendajudicial) {
-		getAgendajudicials().remove(agendajudicial);
-		agendajudicial.setProcesso(null);
-
-		return agendajudicial;
-	}
-
-	public List<Andamento> getAndamentos() {
-		return this.andamentos;
-	}
-
-	public void setAndamentos(List<Andamento> andamentos) {
-		this.andamentos = andamentos;
-	}
-
-	public Andamento addAndamento(Andamento andamento) {
-		getAndamentos().add(andamento);
-		andamento.setProcesso(this);
-
-		return andamento;
-	}
-
-	public Andamento removeAndamento(Andamento andamento) {
-		getAndamentos().remove(andamento);
-		andamento.setProcesso(null);
-
-		return andamento;
-	}
-
-	public List<Banco> getBancos() {
-		return this.bancos;
-	}
-
-	public void setBancos(List<Banco> bancos) {
-		this.bancos = bancos;
-	}
-
-	public Banco addBanco(Banco banco) {
-		getBancos().add(banco);
-		banco.setProcesso(this);
-
-		return banco;
-	}
-
-	public Banco removeBanco(Banco banco) {
-		getBancos().remove(banco);
-		banco.setProcesso(null);
-
-		return banco;
-	}
-
-	public List<Conta> getContas() {
-		return this.contas;
-	}
-
-	public void setContas(List<Conta> contas) {
-		this.contas = contas;
-	}
-
-	public Conta addConta(Conta conta) {
-		getContas().add(conta);
-		conta.setProcesso(this);
-
-		return conta;
-	}
-
-	public Conta removeConta(Conta conta) {
-		getContas().remove(conta);
-		conta.setProcesso(null);
-
-		return conta;
-	}
-
-	public Cadastro getCadastro() {
-		return this.cadastro;
-	}
-
-	public void setCadastro(Cadastro cadastro) {
-		this.cadastro = cadastro;
-	}
-
-	public Parte getParte1() {
-		return this.parte1;
-	}
-
-	public void setParte1(Parte parte1) {
-		this.parte1 = parte1;
-	}
-
-	public Parte getParte2() {
-		return this.parte2;
-	}
-
-	public void setParte2(Parte parte2) {
-		this.parte2 = parte2;
-	}
-
-	public Advogado getAdvogado() {
-		return this.advogado;
-	}
-
-	public void setAdvogado(Advogado advogado) {
-		this.advogado = advogado;
-	}
-
-	public Natureza getNatureza() {
-		return this.natureza;
-	}
-
-	public void setNatureza(Natureza natureza) {
-		this.natureza = natureza;
-	}
-
-	public Varaforo getVaraforo() {
-		return this.varaforo;
-	}
-
-	public void setVaraforo(Varaforo varaforo) {
-		this.varaforo = varaforo;
-	}
-
-	public Comarca getComarca() {
-		return this.comarca;
-	}
-
-	public void setComarca(Comarca comarca) {
-		this.comarca = comarca;
-	}
-
-	public Adverso getAdverso() {
-		return this.adverso;
-	}
-
-	public void setAdverso(Adverso adverso) {
-		this.adverso = adverso;
-	}
-
-	public Cartorio getCartorio() {
-		return this.cartorio;
-	}
-
-	public void setCartorio(Cartorio cartorio) {
-		this.cartorio = cartorio;
-	}
-
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cd_processo")
+    private Integer cdProcesso;
+    @Column(name = "nr_proc_cartorio")
+    private String nrProcCartorio;
+    @Column(name = "dt_processo")
+    @Temporal(TemporalType.DATE)
+    private Date dtProcesso;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "vl_processo")
+    private BigDecimal vlProcesso;
+    @Basic(optional = false)
+    @Column(name = "nr_ano")
+    private String nrAno;
+    @Basic(optional = false)
+    @Column(name = "nr_processo")
+    private String nrProcesso;
+    @Lob
+    @Column(name = "ds_obs")
+    private String dsObs;
+    @Basic(optional = false)
+    @Column(name = "st_processo")
+    private Character stProcesso;
+    @Column(name = "ds_pasta")
+    private String dsPasta;
+    @Column(name = "cd_estagiario")
+    private Integer cdEstagiario;
+    @Column(name = "cd_cliente")
+    private Integer cdCliente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "processo")
+    private List<Banco> bancoList;
+    @JoinColumn(name = "cd_cartorio", referencedColumnName = "cd_cartorio")
+    @ManyToOne
+    private Cartorio cdCartorio;
+    @JoinColumn(name = "cd_adverso", referencedColumnName = "cd_adverso")
+    @ManyToOne
+    private Adverso cdAdverso;
+    @JoinColumn(name = "cd_comarca", referencedColumnName = "cd_comarca")
+    @ManyToOne
+    private Comarca cdComarca;
+    @JoinColumn(name = "cd_varaforo", referencedColumnName = "cd_varaforo")
+    @ManyToOne
+    private Varaforo cdVaraforo;
+    @JoinColumn(name = "cd_natcausa", referencedColumnName = "cd_natureza")
+    @ManyToOne
+    private Natureza cdNatcausa;
+    @JoinColumn(name = "cd_advogado", referencedColumnName = "cd_advogado")
+    @ManyToOne
+    private Advogado cdAdvogado;
+    @JoinColumn(name = "cd_parte", referencedColumnName = "cd_parte")
+    @ManyToOne
+    private Parte cdParte;
+    @JoinColumn(name = "cd_reu", referencedColumnName = "cd_parte")
+    @ManyToOne
+    private Parte cdReu;
+    @JoinColumn(name = "cd_cadastro", referencedColumnName = "cd_cadastro")
+    @ManyToOne(optional = false)
+    private Cadastro cadastro;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "Processo")
+    private List<Andamento> andamentoList;
+    @OneToMany(mappedBy = "Processo")
+    private List<Contas> contasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Processo")
+    private List<Agendajudicial> agendajudicialList;
+*/
+    public Processo() {
+    }
+
+    public Processo(Integer cdProcesso) {
+        this.cdProcesso = cdProcesso;
+    }
+
+    public Processo(Integer cdProcesso, String nrAno, String nrProcesso, Character stProcesso) {
+        this.cdProcesso = cdProcesso;
+        this.nrAno = nrAno;
+        this.nrProcesso = nrProcesso;
+        this.stProcesso = stProcesso;
+    }
+
+    public Integer getCdProcesso() {
+        return cdProcesso;
+    }
+
+    public void setCdProcesso(Integer cdProcesso) {
+        this.cdProcesso = cdProcesso;
+    }
+
+    public String getNrProcCartorio() {
+        return nrProcCartorio;
+    }
+
+    public void setNrProcCartorio(String nrProcCartorio) {
+        this.nrProcCartorio = nrProcCartorio;
+    }
+
+    public Date getDtProcesso() {
+        return dtProcesso;
+    }
+
+    public void setDtProcesso(Date dtProcesso) {
+        this.dtProcesso = dtProcesso;
+    }
+
+    public BigDecimal getVlProcesso() {
+        return vlProcesso;
+    }
+
+    public void setVlProcesso(BigDecimal vlProcesso) {
+        this.vlProcesso = vlProcesso;
+    }
+
+    public String getNrAno() {
+        return nrAno;
+    }
+
+    public void setNrAno(String nrAno) {
+        this.nrAno = nrAno;
+    }
+
+    public String getNrProcesso() {
+        return nrProcesso;
+    }
+
+    public void setNrProcesso(String nrProcesso) {
+        this.nrProcesso = nrProcesso;
+    }
+
+    public String getDsObs() {
+        return dsObs;
+    }
+
+    public void setDsObs(String dsObs) {
+        this.dsObs = dsObs;
+    }
+
+    public Character getStProcesso() {
+        return stProcesso;
+    }
+
+    public void setStProcesso(Character stProcesso) {
+        this.stProcesso = stProcesso;
+    }
+
+    public String getDsPasta() {
+        return dsPasta;
+    }
+
+    public void setDsPasta(String dsPasta) {
+        this.dsPasta = dsPasta;
+    }
+
+    public Integer getCdEstagiario() {
+        return cdEstagiario;
+    }
+
+    public void setCdEstagiario(Integer cdEstagiario) {
+        this.cdEstagiario = cdEstagiario;
+    }
+
+    public Integer getCdCliente() {
+        return cdCliente;
+    }
+
+    public void setCdCliente(Integer cdCliente) {
+        this.cdCliente = cdCliente;
+    }
+
+    @XmlTransient
+    public List<Banco> getBancoList() {
+        return bancoList;
+    }
+
+    public void setBancoList(List<Banco> bancoList) {
+        this.bancoList = bancoList;
+    }
+
+    public Cartorio getCdCartorio() {
+        return cdCartorio;
+    }
+
+    public void setCdCartorio(Cartorio cdCartorio) {
+        this.cdCartorio = cdCartorio;
+    }
+
+    public Adverso getCdAdverso() {
+        return cdAdverso;
+    }
+
+    public void setCdAdverso(Adverso cdAdverso) {
+        this.cdAdverso = cdAdverso;
+    }
+
+    public Comarca getCdComarca() {
+        return cdComarca;
+    }
+
+    public void setCdComarca(Comarca cdComarca) {
+        this.cdComarca = cdComarca;
+    }
+
+    public Varaforo getCdVaraforo() {
+        return cdVaraforo;
+    }
+
+    public void setCdVaraforo(Varaforo cdVaraforo) {
+        this.cdVaraforo = cdVaraforo;
+    }
+
+    public Natureza getCdNatcausa() {
+        return cdNatcausa;
+    }
+
+    public void setCdNatcausa(Natureza cdNatcausa) {
+        this.cdNatcausa = cdNatcausa;
+    }
+
+    public Advogado getCdAdvogado() {
+        return cdAdvogado;
+    }
+
+    public void setCdAdvogado(Advogado cdAdvogado) {
+        this.cdAdvogado = cdAdvogado;
+    }
+
+    public Parte getCdParte() {
+        return cdParte;
+    }
+
+    public void setCdParte(Parte cdParte) {
+        this.cdParte = cdParte;
+    }
+
+    public Parte getCdReu() {
+        return cdReu;
+    }
+
+    public void setCdReu(Parte cdReu) {
+        this.cdReu = cdReu;
+    }
+
+    public Cadastro getCdCadastro() {
+        return cadastro;
+    }
+
+    public void setCdCadastro(Cadastro cdCadastro) {
+        this.cadastro = cdCadastro;
+    }
+    /*
+    @XmlTransient
+    public List<Andamento> getAndamentoList() {
+        return andamentoList;
+    }
+
+    public void setAndamentoList(List<Andamento> andamentoList) {
+        this.andamentoList = andamentoList;
+    }
+
+    @XmlTransient
+    public List<Contas> getContasList() {
+        return contasList;
+    }
+
+    public void setContasList(List<Contas> contasList) {
+        this.contasList = contasList;
+    }
+
+    @XmlTransient
+    public List<Agendajudicial> getAgendajudicialList() {
+        return agendajudicialList;
+    }
+
+    public void setAgendajudicialList(List<Agendajudicial> agendajudicialList) {
+        this.agendajudicialList = agendajudicialList;
+    }
+	*/
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cdProcesso != null ? cdProcesso.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Processo)) {
+            return false;
+        }
+        Processo other = (Processo) object;
+        if ((this.cdProcesso == null && other.cdProcesso != null) || (this.cdProcesso != null && !this.cdProcesso.equals(other.cdProcesso))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.domsantos.processoweb.model.Processo[ cdProcesso=" + cdProcesso + " ]";
+    }
+    
 }

@@ -30,7 +30,7 @@ public class HomeBean extends PaginaBean{
 	
 	@URLAction(mappingId="home", onPostback = false)
 	public void abrir(){
-		
+		 
 	}
 
 	public LoginBean getLoginBean() {
@@ -40,6 +40,7 @@ public class HomeBean extends PaginaBean{
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
 	}
+	
 	
 	
 }
