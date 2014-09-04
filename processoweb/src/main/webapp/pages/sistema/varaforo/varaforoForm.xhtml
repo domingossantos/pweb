@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/sistema.xhtml">
+	<ui:define name="top_conteudo"><h2>Vara / Foro</h2></ui:define>
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link
+			outcome="pretty:processoGrid" value="Processos" /> / <h:link
+			outcome="pretty:varaforoGrid" value="Vara/Foro" /> / cadastro
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form prependId="false" id="formGrid" acceptcharset="ISO-8859-1" lang="pt_BR">
+			
+				<h:panelGrid columns="3" cellspacing="2">
+					<h:outputLabel value="Vara / Foro" for="txNome"/>
+					<p:inputText id="txNome" value="#{varaForoFormBean.varaforo.dsVaraforo}" required="true" size="50" maxlength="50"/>
+					<p:message for="txNome" />
+					
+					<h:outputLabel value="Fone" for="txFone"/>
+					<p:inputMask id="txFone" mask="(99) 9999-9999" value="#{varaForoFormBean.varaforo.nrFone}"/>
+					<p:message for="txFone" />
+					
+					<h:outputLabel value="Contato" for="txContato"/>
+					<p:inputText id="txContato" value="#{varaForoFormBean.varaforo.dsContato}"  size="50" maxlength="50"/> 
+					<p:message for="txContato" />
+					
+					
+					<p:commandButton action="#{varaForoFormBean.salvar()}" value="Salvar" ajax="false" process="@this"/>
+					
+				</h:panelGrid>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

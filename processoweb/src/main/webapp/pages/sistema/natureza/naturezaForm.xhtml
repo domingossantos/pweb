@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/sistema.xhtml">
+	<ui:define name="top_conteudo"><h2>Matéria</h2></ui:define>
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link
+			outcome="pretty:processosAbertosGrid" value="Processos" /> / <h:link
+			outcome="pretty:naturezaGrid" value="Natureza" /> / cadastro
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form prependId="false" id="formGrid" acceptcharset="ISO-8859-1" lang="pt_BR">
+			
+				<h:panelGrid columns="3" cellspacing="2">
+					<h:outputLabel value="Matéria" for="txNome"/>
+					<p:inputText id="txNome" value="#{naturezaFormBean.natureza.dsNatureza}" required="true" size="50" maxlength="50" />
+					<p:message for="txNome" />
+					
+					<p:commandButton action="#{naturezaFormBean.salvar()}" value="Salvar" ajax="false" process="@this"/>
+					
+				</h:panelGrid>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

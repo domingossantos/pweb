@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/sistema.xhtml">
+	<ui:define name="top_conteudo"><h2>Lista de Comarca</h2></ui:define>
+	<ui:define name="localizacao">
+		<h:link outcome="pretty:home" value="Home" /> / <h:link outcome="pretty:processoGrid" value="Processos"/> / <h:link outcome="pretty:comarcaNovo" value="Comarca"/> / Lista 
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form prependId="false" id="formGrid">
+		
+			<h:panelGrid columns="1" cellspacing="2">
+				<p:commandButton value="Nova Comarca" action="pretty:comarcaNovo"
+					ajax="false" immediate="true" process="@this"
+					styleClass="btn btn-flat btn-primary" />
+			</h:panelGrid>
+			<p:dataTable id="dataTable" var="comarca"
+				value="#{comarcaGridBean.comarcas}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Comarca" />
+					</f:facet>
+					<h:outputText value="#{comarca.dsComarca}"/>
+					
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Fone" />
+					</f:facet>
+					<h:outputText value="#{comarca.nrFone}">
+						<f:converter converterId="phoneConverter"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Contato" />
+					</f:facet>
+					<h:outputText value="#{comarca.nmContato}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:link outcome="pretty:comarcaEditar" value="Editar">
+						<f:param name="cdComarca" value="#{comarca.cdComarca}"/>
+					</h:link>
+				</p:column>
+			</p:dataTable>
+		
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
