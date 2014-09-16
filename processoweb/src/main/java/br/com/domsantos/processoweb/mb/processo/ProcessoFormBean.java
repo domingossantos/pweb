@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.domsantos.processoweb.mb.LoginBean;
 import br.com.domsantos.processoweb.mb.common.PaginaBean;
@@ -22,7 +22,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 @URLMappings(mappings = {
 	    @URLMapping(id = "processoNovo", pattern = "/processo/novo", viewId = "/pages/sistema/processo/processoForm.jsf", parentId = "paginaRestrita"),
 	    @URLMapping(id = "processoEditar", pattern = "/processo/editar/#{cdProcesso : processo.cdProcesso}", viewId = "/pages/sistema/processo/processoForm.jsf", parentId = "paginaRestrita")
@@ -62,20 +62,20 @@ public class ProcessoFormBean extends PaginaBean{
 	
 	@URLActions(actions = {
 			@URLAction(mappingId = "processoNovo", onPostback = false),
-			@URLAction(mappingId = "processoEditar", onPostback = false), })
+			@URLAction(mappingId = "processoEditar", onPostback = false) })
 	public void abrir(){
 		naturezas = naturezaSrv.getPorCadastro(loginBean.getCadastro());
 		autores = parteSrv.listaPorCadastro(loginBean.getCadastro());
 		reus = parteSrv.listaPorCadastro(loginBean.getCadastro());
 		autor = new Parte();
 		reu  = new Parte();
+		
 		if(cdProcesso == null){
 			processo = new Processo();
 			processo.setCdCadastro(loginBean.getCadastro());
 		} else {
 			processo = processoSrv.getId(cdProcesso); 
 		}
-		
 	}
 	
 	

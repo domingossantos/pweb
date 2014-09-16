@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.domsantos.processoweb.mb.LoginBean;
 import br.com.domsantos.processoweb.mb.common.PaginaBean;
@@ -17,7 +17,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 @URLMappings(mappings = {
 	    @URLMapping(id = "processosAbertosGrid", pattern = "/processo/listaAbertos", viewId = "/pages/sistema/processo/processoGrid.jsf", parentId = "paginaRestrita"),
 	    @URLMapping(id = "processosFechadosGrid", pattern = "/processo/listaFechados", viewId = "/pages/sistema/processo/processoGrid.jsf", parentId = "paginaRestrita")
