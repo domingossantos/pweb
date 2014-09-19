@@ -19,8 +19,8 @@ public class ProcessoSrv {
 		return processoDAO.getUm(id, Processo.class);
 	}
 	
-	public List<Processo> listaAbertosPorCadastro(Cadastro cadastro){
-		return processoDAO.listaAbertosPorCadastro(cadastro);
+	public List<Processo> listaProcessosNovos(Cadastro cadastro){
+		return processoDAO.listaPorCadastroStatus(cadastro, 'N');
 	}
 	
 	public void salvar(Processo processo){

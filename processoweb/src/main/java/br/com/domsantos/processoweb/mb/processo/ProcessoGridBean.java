@@ -1,5 +1,7 @@
 package br.com.domsantos.processoweb.mb.processo;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -7,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import br.com.domsantos.common.FuncoesUteis;
 import br.com.domsantos.processoweb.mb.LoginBean;
 import br.com.domsantos.processoweb.mb.common.PaginaBean;
 import br.com.domsantos.processoweb.model.Processo;
@@ -35,10 +38,17 @@ public class ProcessoGridBean extends PaginaBean {
 	@EJB
 	private ProcessoSrv processoSrv;
 	
+	private Calendar dataAtual;
+	
+	
 	@URLAction(mappingId = "processosAbertosGrid", onPostback = true)
 	public void listaAbertos(){
-		processos = processoSrv.listaAbertosPorCadastro(loginBean.getCadastro());
-		
+		dataAtual = FuncoesUteis.getDataCorrentePt_BR();
+		processos = processoSrv.listaProcessosNovos(loginBean.getCadastro());
+	}
+	
+	public Long getPrazoProcessoEmDias(Date dataFinal){
+		return FuncoesUteis.duracaoDataEmDias(dataAtual.getTime(), dataFinal);
 	}
 
 	public List<Processo> getProcessos() {

@@ -20,21 +20,15 @@ public class ProcessoDAO extends DAO<Processo>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Processo> listaAbertosPorCadastro(Cadastro cadastro){
-		Query q = getEm().createQuery("select a from Processo a where stProcesso = 'A' and  a.cadastro = :cadastro order by a.cdProcesso");
+	public List<Processo> listaPorCadastroStatus(Cadastro cadastro, char status){
+		Query q = getEm().createQuery("select a from Processo a where stProcesso = :status and  a.cadastro = :cadastro order by a.cdProcesso");
 		q.setParameter("cadastro", cadastro);
+		q.setParameter("status", status);
 		
 		return q.getResultList();
 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Processo> listaFechadosPorCadastro(Cadastro cadastro){
-		Query q = getEm().createQuery("select a from Processo a where stProcesso = 'F' and  a.cadastro = :cadastro order by a.cdProcesso");
-		q.setParameter("cadastro", cadastro);
-		
-		return q.getResultList();
-		
-	}
+	
 
 }

@@ -280,10 +280,10 @@
 			</a>
 				<ul class="treeview-menu">
 					<li><h:link outcome="pretty:processoNovo">
-							<i class="fa fa-angle-double-right"></i> Novo Processo
+							<i class="fa fa-angle-double-right"></i> Nova Demanda
                                 	</h:link></li>
 					<li><h:link outcome="pretty:processosAbertosGrid">
-							<i class="fa fa-angle-double-right"></i> Demanda 
+							<i class="fa fa-angle-double-right"></i> Demandas 
                                 	</h:link></li>
                     <li><h:link outcome="pretty:processosAbertosGrid">
 							<i class="fa fa-angle-double-right"></i> Meus Processos 
@@ -291,30 +291,15 @@
 					<li><h:link outcome="pretty:processoNovo">
 							<i class="fa fa-angle-double-right"></i> Custas
                                 	</h:link></li>
+                    <li><h:link outcome="pretty:adversoGrid">
+							<i class="fa fa-angle-double-right"></i> Partes
+                                	</h:link></li>
 					<li><h:link outcome="pretty:adversoGrid">
-							<i class="fa fa-angle-double-right"></i> Adversos
-                                	</h:link></li>
-				</ul></li>
-
-			<li class="treeview"><a href="#"> <i class="fa fa-bar-chart-o"></i> <span>Distribuição</span> <i
-					class="fa fa-angle-left pull-right"></i>
-			</a>
-				<ul class="treeview-menu">
-					<li><h:link outcome="pretty:cartorioGrid">
-							<i class="fa fa-angle-double-right"></i> Registrar Demanda
-                                	</h:link></li>
-					<li><h:link outcome="pretty:comarcaGrid">
-							<i class="fa fa-angle-double-right"></i> Distribuição
-                                	</h:link></li>
-					<li><h:link outcome="pretty:naturezaGrid">
-							<i class="fa fa-angle-double-right"></i> Solicitar Permuta
-                                	</h:link></li>
-					<li><h:link outcome="pretty:varaforoGrid">
-							<i class="fa fa-angle-double-right"></i> Configurar Sorteio 
+							<i class="fa fa-angle-double-right"></i> Advogados Adversos
                                 	</h:link></li>
 				</ul></li>
 			
-			<li class="treeview"><a href="#"> <i class="fa fa-gear"></i> <span>Cadastros Auxiliares</span> <i
+			<li class="treeview"><a href="#"> <i class="fa fa-gear"></i> <span>Configurações</span> <i
 					class="fa fa-angle-left pull-right"></i>
 			</a>
 				<ul class="treeview-menu">
@@ -329,6 +314,9 @@
                                 	</h:link></li>
 					<li><h:link outcome="pretty:varaforoGrid">
 							<i class="fa fa-angle-double-right"></i> Vara/Foro
+                                	</h:link></li>
+                    <li><h:link outcome="pretty:varaforoGrid">
+							<i class="fa fa-angle-double-right"></i> Configurar Sorteio 
                                 	</h:link></li>
 				</ul></li>
 
@@ -371,8 +359,10 @@
 
 
 	<!-- jQuery 2.0.2 -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> -->
+	<script src="#{request.contextPath}/resources/js/jquery-ui-1.10.3.min.js"
+		type="text/javascript"></script>
+		
 	<!-- Bootstrap -->
 	<script src="#{request.contextPath}/resources/js/bootstrap.min.js"
 		type="text/javascript"></script>

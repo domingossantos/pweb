@@ -25,7 +25,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 @ViewScoped
 @URLMappings(mappings = {
 	    @URLMapping(id = "processoNovo", pattern = "/processo/novo", viewId = "/pages/sistema/processo/processoForm.jsf", parentId = "paginaRestrita"),
-	    @URLMapping(id = "processoEditar", pattern = "/processo/editar/#{cdProcesso : processo.cdProcesso}", viewId = "/pages/sistema/processo/processoForm.jsf", parentId = "paginaRestrita")
+	    @URLMapping(id = "processoEditar", pattern = "/processo/editar/#{cdProcesso : processoFormBean.cdProcesso}", viewId = "/pages/sistema/processo/processoForm.jsf", parentId = "paginaRestrita")
 	})
 public class ProcessoFormBean extends PaginaBean{
 
@@ -74,7 +74,8 @@ public class ProcessoFormBean extends PaginaBean{
 			processo = new Processo();
 			processo.setCdCadastro(loginBean.getCadastro());
 		} else {
-			processo = processoSrv.getId(cdProcesso); 
+			processo = processoSrv.getId(cdProcesso);
+			
 		}
 	}
 	
@@ -82,11 +83,7 @@ public class ProcessoFormBean extends PaginaBean{
 	@SuppressWarnings("finally")
 	public String salvar(){
 		
-		try{
-			processo.setCdParte(autor);
-			processo.setCdReu(reu);
-			processo.setCdNatcausa(natureza);
-			
+		try{			
 			if(cdProcesso == null){
 				processo.setStProcesso('N');
 				processoSrv.salvar(processo);
@@ -94,7 +91,7 @@ public class ProcessoFormBean extends PaginaBean{
 				addInfo("Processo incluido");
 			} else {
 				processoSrv.atualizar(processo);
-				addInfo("P	rocesso Atualizado");
+				addInfo("Processo Atualizado");
 			}
 		}
 		catch(Exception ex){

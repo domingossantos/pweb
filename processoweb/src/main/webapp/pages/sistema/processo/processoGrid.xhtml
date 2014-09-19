@@ -23,13 +23,30 @@
 					<f:facet name="header">
 						<h:outputText value="Processo" />
 					</f:facet>
-					<h:outputText value="#{p.nrProcesso / p.nrAno}"/>
+					<h:outputText value="#{p.nrProcesso} / #{p.nrAno}"/>
 				</p:column>
 				<p:column>
 					<f:facet name="header">
-						<h:outputText value="Cliente" />
+						<h:outputText value="Data Prazo" />
 					</f:facet>
-					<h:outputText value="#{p.cartorio.nmContato}"/>
+					<h:outputText value="#{p.dtProcesso}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Prazo em Dias" />
+					</f:facet>
+					<h:outputText value="#{processoGridBean.getPrazoProcessoEmDias(p.dtProcesso)}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:link outcome="pretty:processoEditar" value="Editar">
+						<f:param name="cdProcesso" value="#{p.cdProcesso}"/>
+					</h:link>
+					<h:outputText value="#{p.cdCliente}"/>
 				</p:column>
 			</p:dataTable>
 		</h:form>

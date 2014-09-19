@@ -87,5 +87,17 @@ public class FuncoesUteis {
 		Locale locale = new Locale("pt", "BR");
 		return Calendar.getInstance(locale);
 	}
-
+	/*
+	 * Devolve a diferença de Datas em DIAS;
+	 */
+	public static long duracaoDataEmDias(Date dataInicial, Date dataFinal) {
+		Calendar di = Calendar.getInstance();
+		Calendar df = Calendar.getInstance();
+		di.setTime(dataInicial);
+		df.setTime(dataFinal);
+		long diff = (df.getTimeInMillis() - di.getTimeInMillis());
+		int tempoDia = 1000 * 60 * 60 * 24;
+		long res = diff / tempoDia;
+		return res;
+	}
 }

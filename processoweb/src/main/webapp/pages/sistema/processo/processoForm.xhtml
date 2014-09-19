@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/template/sistema_old.xhtml">
+<ui:composition template="/template/sistema.xhtml">
 	<ui:define name="top_conteudo"><h2>Processo</h2></ui:define>
 	<ui:define name="localizacao">
 		<h:link outcome="pretty:home" value="Home" /> / <h:link
@@ -13,9 +13,8 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form prependId="false" id="formGrid">
-			
 				<h:panelGrid columns="3" cellspacing="10" styleClass="box-body">
-					
+
 					<h:outputLabel value="Nº Processo" for="txNomProc"/>
 					<p:inputText id="txNomProc" value="#{processoFormBean.processo.nrProcesso}" required="true" size="15" maxlength="15" styleClass="form-control"/>
 					<p:message for="txNomProc" />
@@ -41,13 +40,13 @@
 					
 					
 					<h:outputLabel value="Autor" for="cbAutor"/>
-					<p:selectOneMenu id="cbAutor" value="#{processoFormBean.autor}" converter="objConverter">
+					<p:selectOneMenu id="cbAutor" value="#{processoFormBean.processo.cdParte}" converter="objConverter">
 						<f:selectItems var="autor" value="#{processoFormBean.autores}" itemLabel="#{autor.nmParte}" itemValue="#{autor}"/>
 					</p:selectOneMenu>
 					<p:message for="cbAutor" />
 					
 					<h:outputLabel value="Reu" for="cbReu"/>
-					<p:selectOneMenu id="cbReu" value="#{processoFormBean.reu}" converter="objConverter">
+					<p:selectOneMenu id="cbReu" value="#{processoFormBean.processo.cdReu}" converter="objConverter">
 						<f:selectItems var="reu" value="#{processoFormBean.reus}" itemLabel="#{reu.nmParte}" itemValue="#{reu}"/>
 					</p:selectOneMenu>
 					<p:message for="cbReu" />
