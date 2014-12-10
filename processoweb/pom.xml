@@ -9,7 +9,7 @@
 	<properties>
 		<version.javaee>6.0</version.javaee>
 		<version.prettyfaces>3.3.3</version.prettyfaces>
-		<version.primefaces>4.0</version.primefaces>
+		<version.primefaces>5.0</version.primefaces>
 	</properties>
 
 	<build>
@@ -54,12 +54,6 @@
 			<artifactId>primefaces</artifactId>
 			<version>${version.primefaces}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>1.0.10</version>
-		</dependency> 
 		
 		<dependency>
 			<groupId>commons-fileupload</groupId>

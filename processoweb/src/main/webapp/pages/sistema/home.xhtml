@@ -1,22 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/template/sistema.xhtml">
-	<ui:define name="top_conteudo"><h2>Resumo de atividades</h2></ui:define>
-	<ui:define name="localizacao">Home</ui:define>
-	<ui:define name="conteudo">
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Processos Abertos:" for="lbAbertor"/>
-			<h:outputLabel value="5" id="lbAbertor"/>
-			
-			<h:outputLabel value="Processos Fechados:" for="lbFechados"/>
-			<h:outputLabel value="15" id="lbFechados"/>
-			
-			<h:outputLabel value="Ultimo Acesso:" for="lbAcesso"/>
-			<h:outputLabel value="10/10/2011 20:00:12" id="lbAcesso"/>
-		</h:panelGrid>
-	</ui:define>
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/interno.xhtml">
+<ui:define name="top_conteudo"><h4>Processo</h4></ui:define>
+<ui:define name="localizacao"><a href="home">Inicio</a></ui:define>
+<ui:define name="conteudo"></ui:define>
 </ui:composition>
 </html>
